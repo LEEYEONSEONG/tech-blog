@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/tech-blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=tech-blog/livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Context API -&gt; Recoil 성능 개선 과정 | 블로그</title>
 <meta name="keywords" content="">
 <meta name="description" content="이전 글에서 클라이언트 상태와 서버 상태를 분리하는 과정에서
@@ -16,16 +16,16 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
 이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.
 작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.">
 <meta name="author" content="">
-<link rel="canonical" href="https://leeyeonseong.github.io/tech-blog/articles/context-recoil/">
+<link rel="canonical" href="http://localhost:1313/tech-blog/articles/context-recoil/">
 <link crossorigin="anonymous" href="/tech-blog/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://leeyeonseong.github.io/tech-blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://leeyeonseong.github.io/tech-blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://leeyeonseong.github.io/tech-blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://leeyeonseong.github.io/tech-blog/apple-touch-icon.png">
-<link rel="mask-icon" href="https://leeyeonseong.github.io/tech-blog/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/tech-blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/tech-blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/tech-blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/tech-blog/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/tech-blog/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://leeyeonseong.github.io/tech-blog/articles/context-recoil/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tech-blog/articles/context-recoil/">
 <noscript>
     <style>
         #theme-toggle,
@@ -62,81 +62,7 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
         }
 
     </style>
-</noscript><meta property="og:url" content="https://leeyeonseong.github.io/tech-blog/articles/context-recoil/">
-  <meta property="og:site_name" content="블로그">
-  <meta property="og:title" content="Context API -&gt; Recoil 성능 개선 과정">
-  <meta property="og:description" content="이전 글에서 클라이언트 상태와 서버 상태를 분리하는 과정에서
-Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.
-이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,
-그리고 Recoil을 사용함으로써 성능 측면에서 어떤 개선 효과가 있었는지를 자세히 공유하려고 합니다.
-왜 Recoil이 필요했는가 이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.
-작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.">
-  <meta property="og:locale" content="ko">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="articles">
-    <meta property="article:published_time" content="2023-05-28T00:00:00+00:00">
-    <meta property="article:modified_time" content="2023-05-28T00:00:00+00:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Context API -&gt; Recoil 성능 개선 과정">
-<meta name="twitter:description" content="이전 글에서 클라이언트 상태와 서버 상태를 분리하는 과정에서
-Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.
-이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,
-그리고 Recoil을 사용함으로써 성능 측면에서 어떤 개선 효과가 있었는지를 자세히 공유하려고 합니다.
-
-왜 Recoil이 필요했는가
-이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.
-작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Articles",
-      "item": "https://leeyeonseong.github.io/tech-blog/articles/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Context API -\u003e Recoil 성능 개선 과정",
-      "item": "https://leeyeonseong.github.io/tech-blog/articles/context-recoil/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Context API -\u003e Recoil 성능 개선 과정",
-  "name": "Context API -\u003e Recoil 성능 개선 과정",
-  "description": "이전 글에서 클라이언트 상태와 서버 상태를 분리하는 과정에서\nContext API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.\n이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,\n그리고 Recoil을 사용함으로써 성능 측면에서 어떤 개선 효과가 있었는지를 자세히 공유하려고 합니다.\n왜 Recoil이 필요했는가 이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.\n작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "이전 글에서 클라이언트 상태와 서버 상태를 분리하는 과정에서\nContext API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.\n이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,\n그리고 Recoil을 사용함으로써 성능 측면에서 어떤 개선 효과가 있었는지를 자세히 공유하려고 합니다.\n왜 Recoil이 필요했는가 이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.\n작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.\n특히 실시간 화상 연결 기능이 포함된 비대면 진료 프로젝트에서는,\n화상 연결 사용자 리스트인 remoteUsers가 변경될 때마다 전체 UI가 리렌더링되는 문제가 있었다.\n이건 단순히 구조상의 문제가 아니라 실제 사용자 경험에 영향을 주는 성능 이슈였다.\n기존 구조 (Context API) // provider.tsx export default function Provider() { const handleRemoteUser = (remoteUsers) =\u003e { dispatch({ type: \"SET_REMOTE_USER\", payload: remoteUsers, }); }; } // MediaContent.tsx export default function MediaContent() { const { remoteUsers } = useCall(); // useContext(CallContext) const rtcUsers = remoteUsers.filter((user) =\u003e user.uid !== \"screen\"); return ( \u003c\u003e {rtcUsers.map((rtcUser) =\u003e ( \u003c\u003e{rtcUser}\u003c/\u003e ))} \u003c/\u003e ); } 새로운 사용자가 화상 통화에 입장하면, 해당 사용자 리스트(remoteUsers)가 변경되고, 이 값을 참조하고 있는 MediaContent.tsx는 물론, 해당 Context를 구독하고 있는 다른 컴포넌트들까지 모두 리렌더링되었다.\n이 상태에서 Profiler로 측정한 렌더링 시간은 다음과 같다.\nRecoil로 구조 전환 이제 Recoil을 적용해 상태를 atom 단위로 쪼개고, 의존하는 컴포넌트에서만 렌더링이 발생하도록 구조를 바꿨다.\n// provider.tsx export const remoteUserState = atom({ key: \"remoteUserState\", default: [], }); // MediaContent.tsx export default function MediaContent() { const [remoteUsers] = useRecoilState(remoteUserState); const rtcUsers = remoteUsers.filter((user) =\u003e user.uid !== \"screen\"); return ( \u003c\u003e {rtcUsers.map((rtcUser) =\u003e ( \u003c\u003e{rtcUser}\u003c/\u003e ))} \u003c/\u003e ); } 성능 측정 결과 사용자 한 명이 새로 입장하면 해당 사용자의 비디오 컴포넌트를 렌더링하는 데 약 6.8ms가 소요되었다. 이 중 실제로 렌더링된 부분(video component)만 따지면 약 4.7ms 수준이었다. Profiler 스크린샷을 비교해보면 렌더링이 시작된 최상단 컴포넌트 위치가 완전히 달라졌다는 것을 확인할 수 있었다. Recoil의 atom을 사용하면 MediaContent.tsx처럼 해당 상태를 직접 구독하는 컴포넌트만 리렌더링된다. 반면 Context API는 해당 값을 구독하고 있는 모든 컴포넌트에서 렌더링이 발생하기 때문에, 관련 없는 컴포넌트들도 리렌더링되는 문제가 있었다. 구조 자체가 바뀌었기 때문에, 이후에는 리렌더링 이슈를 추적하거나 성능 최적화 포인트를 찾을 때도 훨씬 수월했다. 결과적으로 Recoil을 사용하면서\n렌더링 대상이 명확하게 분리되었고, 성능이 체감될 정도로 개선되었다.\n마무리하며 Recoil을 도입한 이후, 렌더링 성능은 분명히 개선되었다.\n특히 Context 기반 구조에서 발생하던 불필요한 리렌더링 문제를 명확하게 줄일 수 있었고,\n상태를 더 세분화해서 관리할 수 있다는 점은 유지보수나 협업 측면에서도 도움이 되었다.\n다만, Recoil도 메모리 관련 이슈가 있는걸로 알고 있다…\n상태가 쌓일수록 atom/selector 관리가 분산되고 복잡해지는 경향이 있었고, Recoil에서 내부적으로 사용하는 상태 트리 구조가 크거나 많아질 경우,\n메모리 사용량이 증가하거나 성능이 오히려 악화되는 사례도 일부 있었기 때문이다. 물론 이 프로젝트 규모에서는 체감할 만큼의 문제가 되진 않았지만,\n다음 프로젝트에서는 이러한 부분을 고려해 요즘 많이 사용되는 보다 가볍고 명시적인 상태 관리 도구인 Zustand 도 공부해볼 방향이다..\n",
-  "wordCount" : "446",
-  "inLanguage": "en",
-  "datePublished": "2023-05-28T00:00:00Z",
-  "dateModified": "2023-05-28T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://leeyeonseong.github.io/tech-blog/articles/context-recoil/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "블로그",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://leeyeonseong.github.io/tech-blog/favicon.ico"
-    }
-  }
-}
-</script>
+</noscript>
 </head>
 
 <body class="" id="top">
@@ -154,7 +80,7 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://leeyeonseong.github.io/tech-blog/" accesskey="h" title="블로그 (Alt + H)">블로그</a>
+            <a href="http://localhost:1313/tech-blog/" accesskey="h" title="블로그 (Alt + H)">블로그</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -180,12 +106,12 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
         </div>
         <ul id="menu">
             <li>
-                <a href="https://leeyeonseong.github.io/tech-blog/articles/" title="Articles">
+                <a href="http://localhost:1313/tech-blog/articles/" title="Articles">
                     <span>Articles</span>
                 </a>
             </li>
             <li>
-                <a href="https://leeyeonseong.github.io/tech-blog/about/" title="About me">
+                <a href="http://localhost:1313/tech-blog/about/" title="About me">
                     <span>About me</span>
                 </a>
             </li>
@@ -325,12 +251,12 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/">
+  <a class="prev" href="http://localhost:1313/tech-blog/articles/react-native-codepush/">
     <span class="title">« Prev</span>
     <br>
     <span>React Native에 CodePush 도입기</span>
   </a>
-  <a class="next" href="https://leeyeonseong.github.io/tech-blog/articles/styled-components-ssr/">
+  <a class="next" href="http://localhost:1313/tech-blog/articles/styled-components-ssr/">
     <span class="title">Next »</span>
     <br>
     <span>Next.js에서의 styled-components SSR 이슈와 해결</span>
@@ -342,7 +268,7 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://leeyeonseong.github.io/tech-blog/">블로그</a></span> · 
+        <span>&copy; 2025 <a href="http://localhost:1313/tech-blog/">블로그</a></span> · 
 
     <span>
         Powered by

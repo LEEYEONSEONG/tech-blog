@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>React Query on 블로그</title>
-    <link>https://leeyeonseong.github.io/tech-blog/categories/react-query/</link>
+    <link>http://localhost:1313/tech-blog/categories/react-query/</link>
     <description>Recent content in React Query on 블로그</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>ko</language>
     <lastBuildDate>Fri, 28 Apr 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://leeyeonseong.github.io/tech-blog/categories/react-query/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tech-blog/categories/react-query/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Context API 대신 React Query를 선택한 이유</title>
-      <link>https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/</link>
+      <link>http://localhost:1313/tech-blog/articles/react-query-migration/</link>
       <pubDate>Fri, 28 Apr 2023 00:00:00 +0000</pubDate>
-      <guid>https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/</guid>
-      <description>&lt;p&gt;이전 글에서 &lt;a href=&#34;https://leeyeonseong.github.io/tech-blog/articles/client-server-state&#34;&gt;Recoil 활용&lt;/a&gt;해 클라이언트 상태를 정리했던 이야기를 남긴 적이 있다.&lt;br&gt;
+      <guid>http://localhost:1313/tech-blog/articles/react-query-migration/</guid>
+      <description>&lt;p&gt;이전 글에서 &lt;a href=&#34;http://localhost:1313/tech-blog/articles/client-server-state&#34;&gt;Recoil 활용&lt;/a&gt;해 클라이언트 상태를 정리했던 이야기를 남긴 적이 있다.&lt;br&gt;
 이번에는 같은 프로젝트 내에서 서버 상태를 다루는 방식에 대해 정리해보려 한다.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;context-api를-빠르게-선택했던-이유&#34;&gt;Context API를 빠르게 선택했던 이유&lt;/h2&gt;

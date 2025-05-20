@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Recoil on 블로그</title>
-    <link>https://leeyeonseong.github.io/tech-blog/categories/recoil/</link>
+    <link>http://localhost:1313/tech-blog/categories/recoil/</link>
     <description>Recent content in Recoil on 블로그</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>ko</language>
     <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://leeyeonseong.github.io/tech-blog/categories/recoil/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tech-blog/categories/recoil/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Context API -&gt; Recoil 성능 개선 과정</title>
-      <link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link>
+      <link>http://localhost:1313/tech-blog/articles/context-recoil/</link>
       <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://leeyeonseong.github.io/tech-blog/articles/client-server-state&#34;&gt;이전 글&lt;/a&gt;에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br&gt;
+      <guid>http://localhost:1313/tech-blog/articles/context-recoil/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:1313/tech-blog/articles/client-server-state&#34;&gt;이전 글&lt;/a&gt;에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br&gt;
 Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p&gt;
 &lt;p&gt;이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br&gt;
 그리고 Recoil을 사용함으로써 &lt;strong&gt;성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong&gt;를 자세히 공유하려고 합니다.&lt;/p&gt;
@@ -24,9 +24,9 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
     </item>
     <item>
       <title>클라이언트와 서버 상태, 왜 분리했는가?</title>
-      <link>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</link>
+      <link>http://localhost:1313/tech-blog/articles/client-server-state/</link>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
-      <guid>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</guid>
+      <guid>http://localhost:1313/tech-blog/articles/client-server-state/</guid>
       <description>&lt;p&gt;프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;br&gt;
 처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.&lt;br&gt;
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.&lt;/p&gt;
