@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Articles on 블로그</title>
-    <link>http://localhost:1313/articles/</link>
+    <link>http://localhost:1313/tech-blog/articles/</link>
     <description>Recent content in Articles on 블로그</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>ko</language>
     <lastBuildDate>Sat, 03 Feb 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/articles/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tech-blog/articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WebRTC howling ...</title>
-      <link>http://localhost:1313/articles/webrtc-howling/</link>
+      <link>http://localhost:1313/tech-blog/articles/webrtc-howling/</link>
       <pubDate>Sat, 03 Feb 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/articles/webrtc-howling/</guid>
+      <guid>http://localhost:1313/tech-blog/articles/webrtc-howling/</guid>
       <description>&lt;h2 id=&#34;하울링은-왜-생기는가&#34;&gt;하울링은 왜 생기는가?&lt;/h2&gt;
 &lt;p&gt;하울링은 간단히 말하면, &lt;strong&gt;자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong&gt;,&lt;br&gt;
 그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;br&gt;
@@ -30,9 +30,9 @@ WebRTC는 &lt;code&gt;getUserMedia&lt;/code&gt;로 마이크와 카메라를 활
     </item>
     <item>
       <title>React Native에 CodePush 도입기</title>
-      <link>http://localhost:1313/articles/react-native-codepush/</link>
+      <link>http://localhost:1313/tech-blog/articles/react-native-codepush/</link>
       <pubDate>Sat, 20 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/articles/react-native-codepush/</guid>
+      <guid>http://localhost:1313/tech-blog/articles/react-native-codepush/</guid>
       <description>&lt;p&gt;React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 &lt;strong&gt;Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요&lt;/strong&gt;되는 일이 잦았습니다.&lt;/p&gt;
 &lt;p&gt;특히, 사용자(근로자)에게 주일 마다 피드백을 받아오는 상황에서 잦은 빈도로 업데이트되던 서비스였기 때문에, 이런 병목은 전체 업데이트 일정에 큰 영향을 끼쳤습니다.&lt;/p&gt;
 &lt;p&gt;이러한 문제를 해결하기 위해 &lt;strong&gt;CodePush 기반의 무중단 배포 환경&lt;/strong&gt;을 구축했습니다.&lt;/p&gt;
@@ -43,10 +43,10 @@ WebRTC는 &lt;code&gt;getUserMedia&lt;/code&gt;로 마이크와 카메라를 활
     </item>
     <item>
       <title>Context API -&gt; Recoil 성능 개선 과정</title>
-      <link>http://localhost:1313/articles/context-recoil/</link>
+      <link>http://localhost:1313/tech-blog/articles/context-recoil/</link>
       <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/articles/context-recoil/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:1313/articles/client-server-state&#34;&gt;이전 글&lt;/a&gt;에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br&gt;
+      <guid>http://localhost:1313/tech-blog/articles/context-recoil/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:1313/tech-blog/articles/client-server-state&#34;&gt;이전 글&lt;/a&gt;에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br&gt;
 Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p&gt;
 &lt;p&gt;이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br&gt;
 그리고 Recoil을 사용함으로써 &lt;strong&gt;성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong&gt;를 자세히 공유하려고 합니다.&lt;/p&gt;
@@ -57,9 +57,9 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
     </item>
     <item>
       <title>Next.js에서의 styled-components SSR 이슈와 해결</title>
-      <link>http://localhost:1313/articles/styled-components-ssr/</link>
+      <link>http://localhost:1313/tech-blog/articles/styled-components-ssr/</link>
       <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/articles/styled-components-ssr/</guid>
+      <guid>http://localhost:1313/tech-blog/articles/styled-components-ssr/</guid>
       <description>&lt;p&gt;Next.js 프로젝트(v12)에서 &lt;code&gt;styled-components&lt;/code&gt;를 적용하며 발생한 &lt;strong&gt;스타일 FOUC(Flash of Unstyled Content)&lt;/strong&gt; 문제와 이를 해결한 과정을 정리했습니다.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;문제-상황-ssr-환경에서의-스타일-미적용&#34;&gt;문제 상황: SSR 환경에서의 스타일 미적용&lt;/h2&gt;
@@ -74,10 +74,10 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
     </item>
     <item>
       <title>Context API 대신 React Query를 선택한 이유</title>
-      <link>http://localhost:1313/articles/react-query-migration/</link>
+      <link>http://localhost:1313/tech-blog/articles/react-query-migration/</link>
       <pubDate>Fri, 28 Apr 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/articles/react-query-migration/</guid>
-      <description>&lt;p&gt;이전 글에서 &lt;a href=&#34;http://localhost:1313/articles/client-server-state&#34;&gt;Recoil 활용&lt;/a&gt;해 클라이언트 상태를 정리했던 이야기를 남긴 적이 있다.&lt;br&gt;
+      <guid>http://localhost:1313/tech-blog/articles/react-query-migration/</guid>
+      <description>&lt;p&gt;이전 글에서 &lt;a href=&#34;http://localhost:1313/tech-blog/articles/client-server-state&#34;&gt;Recoil 활용&lt;/a&gt;해 클라이언트 상태를 정리했던 이야기를 남긴 적이 있다.&lt;br&gt;
 이번에는 같은 프로젝트 내에서 서버 상태를 다루는 방식에 대해 정리해보려 한다.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;context-api를-빠르게-선택했던-이유&#34;&gt;Context API를 빠르게 선택했던 이유&lt;/h2&gt;
@@ -88,9 +88,9 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
     </item>
     <item>
       <title>클라이언트와 서버 상태, 왜 분리했는가?</title>
-      <link>http://localhost:1313/articles/client-server-state/</link>
+      <link>http://localhost:1313/tech-blog/articles/client-server-state/</link>
       <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/articles/client-server-state/</guid>
+      <guid>http://localhost:1313/tech-blog/articles/client-server-state/</guid>
       <description>&lt;p&gt;프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;br&gt;
 처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.&lt;br&gt;
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.&lt;/p&gt;

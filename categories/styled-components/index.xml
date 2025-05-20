@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Styled-Components on 블로그</title>
-    <link>http://localhost:1313/categories/styled-components/</link>
+    <link>http://localhost:1313/tech-blog/categories/styled-components/</link>
     <description>Recent content in Styled-Components on 블로그</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>ko</language>
     <lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/styled-components/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tech-blog/categories/styled-components/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Next.js에서의 styled-components SSR 이슈와 해결</title>
-      <link>http://localhost:1313/articles/styled-components-ssr/</link>
+      <link>http://localhost:1313/tech-blog/articles/styled-components-ssr/</link>
       <pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/articles/styled-components-ssr/</guid>
+      <guid>http://localhost:1313/tech-blog/articles/styled-components-ssr/</guid>
       <description>&lt;p&gt;Next.js 프로젝트(v12)에서 &lt;code&gt;styled-components&lt;/code&gt;를 적용하며 발생한 &lt;strong&gt;스타일 FOUC(Flash of Unstyled Content)&lt;/strong&gt; 문제와 이를 해결한 과정을 정리했습니다.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;문제-상황-ssr-환경에서의-스타일-미적용&#34;&gt;문제 상황: SSR 환경에서의 스타일 미적용&lt;/h2&gt;
