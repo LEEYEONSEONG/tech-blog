@@ -1,66 +1,311 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>클라이언트와 서버 상태, 왜 분리했는가? | 블로그</title>
-<meta name=keywords content><meta name=description content="프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>클라이언트와 서버 상태, 왜 분리했는가? | 블로그</title>
+<meta name="keywords" content="">
+<meta name="description" content="프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
 처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.
 
 Context API에서 발생한 문제
 Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.
 이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.
-하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다."><meta name=author content><link rel=canonical href=https://leeyeonseong.github.io/tech-blog/articles/client-server-state/><link crossorigin=anonymous href=/tech-blog/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF+13Dyqob6ASlTrTye8=" rel="preload stylesheet" as=style><link rel=icon href=https://leeyeonseong.github.io/tech-blog/favicon.ico><link rel=icon type=image/png sizes=16x16 href=https://leeyeonseong.github.io/tech-blog/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://leeyeonseong.github.io/tech-blog/favicon-32x32.png><link rel=apple-touch-icon href=https://leeyeonseong.github.io/tech-blog/apple-touch-icon.png><link rel=mask-icon href=https://leeyeonseong.github.io/tech-blog/safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><link rel=alternate hreflang=en href=https://leeyeonseong.github.io/tech-blog/articles/client-server-state/><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--code-block-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><meta property="og:url" content="https://leeyeonseong.github.io/tech-blog/articles/client-server-state/"><meta property="og:site_name" content="블로그"><meta property="og:title" content="클라이언트와 서버 상태, 왜 분리했는가?"><meta property="og:description" content="프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
-처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.
-하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.
-Context API에서 발생한 문제 Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.
-이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.
-하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다."><meta property="og:locale" content="ko"><meta property="og:type" content="article"><meta property="article:section" content="articles"><meta property="article:published_time" content="2023-03-24T00:00:00+00:00"><meta property="article:modified_time" content="2023-03-24T00:00:00+00:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="클라이언트와 서버 상태, 왜 분리했는가?"><meta name=twitter:description content="프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
-처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.
-하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.
+하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/articles/client-server-state/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/articles/client-server-state/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
-Context API에서 발생한 문제
-Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.
-이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.
-하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Articles","item":"https://leeyeonseong.github.io/tech-blog/articles/"},{"@type":"ListItem","position":2,"name":"클라이언트와 서버 상태, 왜 분리했는가?","item":"https://leeyeonseong.github.io/tech-blog/articles/client-server-state/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"클라이언트와 서버 상태, 왜 분리했는가?","name":"클라이언트와 서버 상태, 왜 분리했는가?","description":"프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.\n처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.\n하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.\nContext API에서 발생한 문제 Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.\n이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.\n하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.\n","keywords":[],"articleBody":"프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.\n처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.\n하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.\nContext API에서 발생한 문제 Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.\n이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.\n하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.\nRedux도 고려했지만, 이전 프로젝트에서 경험한 바에 따르면 action, reducer, saga까지 이어지는 구조는 간단한 상태를 처리하기에는 다소 과하다는 생각이 들었습니다.\n그래서 자연스럽게 클라이언트 상태와 서버 상태를 나누어 관리해보자는 방향으로 흐르게 되었습니다.\n역할에 따라 나눈 상태 관리 구조 서버에서 받아오는 데이터는 React Query로 관리하고,\nUI 상태나 사용자와의 상호작용 등 브라우저 내부에서만 사용하는 상태는 Recoil을 통해 관리했습니다.\n이렇게 나누고 나니 상태의 책임이 명확해졌고, 어떤 상태가 어디서 오는지 고민하는 시간이 줄었습니다.\n결과적으로 유지보수나 협업에서도 훨씬 편해졌습니다.\nRecoil의 사용과 느꼈던 점 Recoil은 React와 매우 유사한 방식으로 상태를 관리할 수 있어 익숙하게 사용할 수 있었습니다.\nuseState를 사용하는 것처럼 코드를 구성할 수 있었고, 상태를 atom 단위로 작게 나눌 수 있었기 때문에 렌더링 최적화 측면에서도 도움이 되었습니다.\ninterface IAuthType { id: number; username: string; } export const authState = atom\u003cIAuthType\u003e({ key: \"authState\", default: { id: 0, username: \"\", }, }); const [auth, setAuth] = useRecoilState(authState); 이처럼 특정 상태에 의존하는 컴포넌트만 리렌더링되도록 되어 있어서, Context API를 사용할 때 겪었던 과도한 렌더링 문제를 줄일 수 있었습니다. 상태의 단위를 명확하게 나눌 수 있으니, 의존성도 더 쉽게 관리할 수 있었습니다.\nSelector의 활용 Recoil에서는 파생 상태를 계산할 수 있도록 selector라는 개념을 제공합니다. Redux에서 selector를 사용할 때보다 훨씬 간결하게 작성할 수 있었고, get/set 구조로 되어 있어서 읽기 전용 상태와 쓰기 가능한 상태를 명확하게 구분할 수 있었습니다.\nexport const persistedAuthSelector = selector\u003cIAuthType\u003e({ key: \"persistedAuthSelector\", get: () =\u003e { if (typeof window !== \"undefined\") { const stored = localStorage.getItem(\"auth\"); return stored ? JSON.parse(stored) : { id: 0, username: \"\" }; } return { id: 0, username: \"\" }; }, set: ({ set }, newValue) =\u003e { if (typeof window !== \"undefined\") { localStorage.setItem(\"auth\", JSON.stringify(newValue)); } set(authState, newValue); }, }); 이렇게 selector를 사용하면 파생 데이터를 따로 저장하지 않아도 되기 때문에, 원시 상태는 atom으로만 정의하고, 필요한 계산 결과는 selector에서 처리하는 방식으로 구성할 수 있었습니다. 불필요한 상태를 줄이고, 로직과 데이터의 책임을 분리하는 데도 도움이 되었습니다.\n마무리하며 React Query와 Recoil을 함께 사용하면서 클라이언트 상태와 서버 상태를 명확하게 구분할 수 있었습니다. 서버 상태는 React Query로 가져오고 캐싱하며 에러도 함께 관리하고, 클라이언트에서만 필요한 상태는 Recoil로 구성해서 각각의 책임을 분리했습니다.\n이후로는 상태를 설계할 때마다 먼저 이 질문을 던지게 되었습니다. “이 값은 서버에서 받아오는가?” “아니면 브라우저 안에서만 사용되는가?”\n이 기준 하나만 정해두어도 상태 구조를 훨씬 명확하게 구성할 수 있었습니다. 처음에는 어떤 라이브러리를 쓰는 게 더 나은가를 고민했지만, 지금은 **“이 상태는 어떤 역할을 맡고 있는가”**를 먼저 생각해보고, 그에 맞는 도구를 선택하는 것이 더 중요하다는 생각을 하게 되었습니다.\n","wordCount":"459","inLanguage":"en","datePublished":"2023-03-24T00:00:00Z","dateModified":"2023-03-24T00:00:00Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://leeyeonseong.github.io/tech-blog/articles/client-server-state/"},"publisher":{"@type":"Organization","name":"블로그","logo":{"@type":"ImageObject","url":"https://leeyeonseong.github.io/tech-blog/favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://leeyeonseong.github.io/tech-blog/ accesskey=h title="블로그 (Alt + H)">블로그</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)" aria-label="Toggle theme"><svg id="moon" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://leeyeonseong.github.io/tech-blog/articles/ title=Articles><span>Articles</span></a></li><li><a href=https://leeyeonseong.github.io/tech-blog/about/ title="About me"><span>About me</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><h1 class="post-title entry-hint-parent">클라이언트와 서버 상태, 왜 분리했는가?</h1><div class=post-meta><span title='2023-03-24 00:00:00 +0000 UTC'>March 24, 2023</span></div></header><div class=toc><details><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#context-api%ec%97%90%ec%84%9c-%eb%b0%9c%ec%83%9d%ed%95%9c-%eb%ac%b8%ec%a0%9c aria-label="Context API에서 발생한 문제">Context API에서 발생한 문제</a></li><li><a href=#%ec%97%ad%ed%95%a0%ec%97%90-%eb%94%b0%eb%9d%bc-%eb%82%98%eb%88%88-%ec%83%81%ed%83%9c-%ea%b4%80%eb%a6%ac-%ea%b5%ac%ec%a1%b0 aria-label="역할에 따라 나눈 상태 관리 구조">역할에 따라 나눈 상태 관리 구조</a></li><li><a href=#recoil%ec%9d%98-%ec%82%ac%ec%9a%a9%ea%b3%bc-%eb%8a%90%ea%bc%88%eb%8d%98-%ec%a0%90 aria-label="Recoil의 사용과 느꼈던 점">Recoil의 사용과 느꼈던 점</a></li><li><a href=#%eb%a7%88%eb%ac%b4%eb%a6%ac%ed%95%98%eb%a9%b0 aria-label=마무리하며>마무리하며</a></li></ul></div></details></div><div class=post-content><p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.<br>처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.<br>하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.</p><hr><h2 id=context-api에서-발생한-문제>Context API에서 발생한 문제<a hidden class=anchor aria-hidden=true href=#context-api에서-발생한-문제>#</a></h2><p>Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.<br>이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.<br>하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.</p><p>Redux도 고려했지만, 이전 프로젝트에서 경험한 바에 따르면 action, reducer, saga까지 이어지는 구조는 간단한 상태를 처리하기에는 다소 과하다는 생각이 들었습니다.<br>그래서 자연스럽게 클라이언트 상태와 서버 상태를 나누어 관리해보자는 방향으로 흐르게 되었습니다.</p><hr><h2 id=역할에-따라-나눈-상태-관리-구조>역할에 따라 나눈 상태 관리 구조<a hidden class=anchor aria-hidden=true href=#역할에-따라-나눈-상태-관리-구조>#</a></h2><p>서버에서 받아오는 데이터는 React Query로 관리하고,<br>UI 상태나 사용자와의 상호작용 등 브라우저 내부에서만 사용하는 상태는 Recoil을 통해 관리했습니다.</p><p>이렇게 나누고 나니 상태의 책임이 명확해졌고, 어떤 상태가 어디서 오는지 고민하는 시간이 줄었습니다.<br>결과적으로 유지보수나 협업에서도 훨씬 편해졌습니다.</p><hr><h2 id=recoil의-사용과-느꼈던-점>Recoil의 사용과 느꼈던 점<a hidden class=anchor aria-hidden=true href=#recoil의-사용과-느꼈던-점>#</a></h2><p>Recoil은 React와 매우 유사한 방식으로 상태를 관리할 수 있어 익숙하게 사용할 수 있었습니다.<br>useState를 사용하는 것처럼 코드를 구성할 수 있었고, 상태를 atom 단위로 작게 나눌 수 있었기 때문에 렌더링 최적화 측면에서도 도움이 되었습니다.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=display:flex><span><span style=color:#66d9ef>interface</span> <span style=color:#a6e22e>IAuthType</span> {
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>number</span>;
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>username</span>: <span style=color:#66d9ef>string</span>;
-</span></span><span style=display:flex><span>}
-</span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>authState</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>atom</span>&lt;<span style=color:#f92672>IAuthType</span>&gt;({
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>key</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;authState&#34;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>default</span><span style=color:#f92672>:</span> {
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>0</span>,
-</span></span><span style=display:flex><span>    <span style=color:#a6e22e>username</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;&#34;</span>,
-</span></span><span style=display:flex><span>  },
-</span></span><span style=display:flex><span>});
-</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=display:flex><span><span style=color:#66d9ef>const</span> [<span style=color:#a6e22e>auth</span>, <span style=color:#a6e22e>setAuth</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>useRecoilState</span>(<span style=color:#a6e22e>authState</span>);
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="블로그 (Alt + H)">블로그</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/articles/" title="Articles">
+                    <span>Articles</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/about/" title="About me">
+                    <span>About me</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      클라이언트와 서버 상태, 왜 분리했는가?
+    </h1>
+    <div class="post-meta"><span title='2023-03-24 00:00:00 +0000 UTC'>March 24, 2023</span>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#context-api%ec%97%90%ec%84%9c-%eb%b0%9c%ec%83%9d%ed%95%9c-%eb%ac%b8%ec%a0%9c" aria-label="Context API에서 발생한 문제">Context API에서 발생한 문제</a></li>
+                <li>
+                    <a href="#%ec%97%ad%ed%95%a0%ec%97%90-%eb%94%b0%eb%9d%bc-%eb%82%98%eb%88%88-%ec%83%81%ed%83%9c-%ea%b4%80%eb%a6%ac-%ea%b5%ac%ec%a1%b0" aria-label="역할에 따라 나눈 상태 관리 구조">역할에 따라 나눈 상태 관리 구조</a></li>
+                <li>
+                    <a href="#recoil%ec%9d%98-%ec%82%ac%ec%9a%a9%ea%b3%bc-%eb%8a%90%ea%bc%88%eb%8d%98-%ec%a0%90" aria-label="Recoil의 사용과 느꼈던 점">Recoil의 사용과 느꼈던 점</a></li>
+                <li>
+                    <a href="#%eb%a7%88%eb%ac%b4%eb%a6%ac%ed%95%98%eb%a9%b0" aria-label="마무리하며">마무리하며</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.<br>
+처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.<br>
+하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.</p>
+<hr>
+<h2 id="context-api에서-발생한-문제">Context API에서 발생한 문제<a hidden class="anchor" aria-hidden="true" href="#context-api에서-발생한-문제">#</a></h2>
+<p>Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.<br>
+이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.<br>
+하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.</p>
+<p>Redux도 고려했지만, 이전 프로젝트에서 경험한 바에 따르면 action, reducer, saga까지 이어지는 구조는 간단한 상태를 처리하기에는 다소 과하다는 생각이 들었습니다.<br>
+그래서 자연스럽게 클라이언트 상태와 서버 상태를 나누어 관리해보자는 방향으로 흐르게 되었습니다.</p>
+<hr>
+<h2 id="역할에-따라-나눈-상태-관리-구조">역할에 따라 나눈 상태 관리 구조<a hidden class="anchor" aria-hidden="true" href="#역할에-따라-나눈-상태-관리-구조">#</a></h2>
+<p>서버에서 받아오는 데이터는 React Query로 관리하고,<br>
+UI 상태나 사용자와의 상호작용 등 브라우저 내부에서만 사용하는 상태는 Recoil을 통해 관리했습니다.</p>
+<p>이렇게 나누고 나니 상태의 책임이 명확해졌고, 어떤 상태가 어디서 오는지 고민하는 시간이 줄었습니다.<br>
+결과적으로 유지보수나 협업에서도 훨씬 편해졌습니다.</p>
+<hr>
+<h2 id="recoil의-사용과-느꼈던-점">Recoil의 사용과 느꼈던 점<a hidden class="anchor" aria-hidden="true" href="#recoil의-사용과-느꼈던-점">#</a></h2>
+<p>Recoil은 React와 매우 유사한 방식으로 상태를 관리할 수 있어 익숙하게 사용할 수 있었습니다.<br>
+useState를 사용하는 것처럼 코드를 구성할 수 있었고, 상태를 atom 단위로 작게 나눌 수 있었기 때문에 렌더링 최적화 측면에서도 도움이 되었습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">IAuthType</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">authState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>&lt;<span style="color:#f92672">IAuthType</span>&gt;({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;authState&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">auth</span>, <span style="color:#a6e22e">setAuth</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRecoilState</span>(<span style="color:#a6e22e">authState</span>);
 </span></span></code></pre></div><p>이처럼 특정 상태에 의존하는 컴포넌트만 리렌더링되도록 되어 있어서,
 Context API를 사용할 때 겪었던 과도한 렌더링 문제를 줄일 수 있었습니다.
-상태의 단위를 명확하게 나눌 수 있으니, 의존성도 더 쉽게 관리할 수 있었습니다.</p><p>Selector의 활용
+상태의 단위를 명확하게 나눌 수 있으니, 의존성도 더 쉽게 관리할 수 있었습니다.</p>
+<p>Selector의 활용
 Recoil에서는 파생 상태를 계산할 수 있도록 selector라는 개념을 제공합니다.
-Redux에서 selector를 사용할 때보다 훨씬 간결하게 작성할 수 있었고, get/set 구조로 되어 있어서 읽기 전용 상태와 쓰기 가능한 상태를 명확하게 구분할 수 있었습니다.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-tsx data-lang=tsx><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>persistedAuthSelector</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>selector</span>&lt;<span style=color:#f92672>IAuthType</span>&gt;({
-</span></span><span style=display:flex><span>  <span style=color:#a6e22e>key</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;persistedAuthSelector&#34;</span>,
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>get</span><span style=color:#f92672>:</span> () <span style=color:#f92672>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>typeof</span> window <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#34;undefined&#34;</span>) {
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>stored</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>localStorage</span>.<span style=color:#a6e22e>getItem</span>(<span style=color:#e6db74>&#34;auth&#34;</span>);
-</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>stored</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>stored</span>) <span style=color:#f92672>:</span> { <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>0</span>, <span style=color:#a6e22e>username</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;&#34;</span> };
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> { <span style=color:#a6e22e>id</span>: <span style=color:#66d9ef>0</span>, <span style=color:#a6e22e>username</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;&#34;</span> };
-</span></span><span style=display:flex><span>  },
-</span></span><span style=display:flex><span>  <span style=color:#66d9ef>set</span><span style=color:#f92672>:</span> ({ <span style=color:#66d9ef>set</span> }, <span style=color:#a6e22e>newValue</span>) <span style=color:#f92672>=&gt;</span> {
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>typeof</span> window <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#34;undefined&#34;</span>) {
-</span></span><span style=display:flex><span>      <span style=color:#a6e22e>localStorage</span>.<span style=color:#a6e22e>setItem</span>(<span style=color:#e6db74>&#34;auth&#34;</span>, <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>newValue</span>));
-</span></span><span style=display:flex><span>    }
-</span></span><span style=display:flex><span>    <span style=color:#66d9ef>set</span>(<span style=color:#a6e22e>authState</span>, <span style=color:#a6e22e>newValue</span>);
-</span></span><span style=display:flex><span>  },
-</span></span><span style=display:flex><span>});
+Redux에서 selector를 사용할 때보다 훨씬 간결하게 작성할 수 있었고, get/set 구조로 되어 있어서 읽기 전용 상태와 쓰기 가능한 상태를 명확하게 구분할 수 있었습니다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">persistedAuthSelector</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">selector</span>&lt;<span style="color:#f92672">IAuthType</span>&gt;({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">key</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;persistedAuthSelector&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">get</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> window <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#34;undefined&#34;</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stored</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#34;auth&#34;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">stored</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">stored</span>) <span style="color:#f92672">:</span> { <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">0</span>, <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span> };
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">0</span>, <span style="color:#a6e22e">username</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span> };
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">set</span><span style="color:#f92672">:</span> ({ <span style="color:#66d9ef">set</span> }, <span style="color:#a6e22e">newValue</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> window <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#34;undefined&#34;</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(<span style="color:#e6db74">&#34;auth&#34;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">newValue</span>));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">set</span>(<span style="color:#a6e22e">authState</span>, <span style="color:#a6e22e">newValue</span>);
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>});
 </span></span></code></pre></div><p>이렇게 selector를 사용하면 파생 데이터를 따로 저장하지 않아도 되기 때문에,
 원시 상태는 atom으로만 정의하고, 필요한 계산 결과는 selector에서 처리하는 방식으로 구성할 수 있었습니다.
-불필요한 상태를 줄이고, 로직과 데이터의 책임을 분리하는 데도 도움이 되었습니다.</p><h2 id=마무리하며>마무리하며<a hidden class=anchor aria-hidden=true href=#마무리하며>#</a></h2><p>React Query와 Recoil을 함께 사용하면서 클라이언트 상태와 서버 상태를 명확하게 구분할 수 있었습니다.
+불필요한 상태를 줄이고, 로직과 데이터의 책임을 분리하는 데도 도움이 되었습니다.</p>
+<h2 id="마무리하며">마무리하며<a hidden class="anchor" aria-hidden="true" href="#마무리하며">#</a></h2>
+<p>React Query와 Recoil을 함께 사용하면서 클라이언트 상태와 서버 상태를 명확하게 구분할 수 있었습니다.
 서버 상태는 React Query로 가져오고 캐싱하며 에러도 함께 관리하고,
-클라이언트에서만 필요한 상태는 Recoil로 구성해서 각각의 책임을 분리했습니다.</p><p>이후로는 상태를 설계할 때마다 먼저 이 질문을 던지게 되었습니다.
-“이 값은 서버에서 받아오는가?” “아니면 브라우저 안에서만 사용되는가?”</p><p>이 기준 하나만 정해두어도 상태 구조를 훨씬 명확하게 구성할 수 있었습니다.
+클라이언트에서만 필요한 상태는 Recoil로 구성해서 각각의 책임을 분리했습니다.</p>
+<p>이후로는 상태를 설계할 때마다 먼저 이 질문을 던지게 되었습니다.
+“이 값은 서버에서 받아오는가?” “아니면 브라우저 안에서만 사용되는가?”</p>
+<p>이 기준 하나만 정해두어도 상태 구조를 훨씬 명확하게 구성할 수 있었습니다.
 처음에는 어떤 라이브러리를 쓰는 게 더 나은가를 고민했지만,
 지금은 **“이 상태는 어떤 역할을 맡고 있는가”**를 먼저 생각해보고,
-그에 맞는 도구를 선택하는 것이 더 중요하다는 생각을 하게 되었습니다.</p></div><footer class=post-footer><ul class=post-tags></ul><nav class=paginav><a class=prev href=https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/><span class=title>« Prev</span><br><span>Context API 대신 React Query를 선택한 이유</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2025 <a href=https://leeyeonseong.github.io/tech-blog/>블로그</a></span> ·
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
-</a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script></body></html>
+그에 맞는 도구를 선택하는 것이 더 중요하다는 생각을 하게 되었습니다.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/articles/react-query-migration/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Context API 대신 React Query를 선택한 이유</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">블로그</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

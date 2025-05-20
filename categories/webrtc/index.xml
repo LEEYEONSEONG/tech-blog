@@ -1,14 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>WebRTC on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/categories/webrtc/</link><description>Recent content in WebRTC on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Sat, 03 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/categories/webrtc/index.xml" rel="self" type="application/rss+xml"/><item><title>WebRTC howling ...</title><link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</link><pubDate>Sat, 03 Feb 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</guid><description>&lt;h2 id="하울링은-왜-생기는가">하울링은 왜 생기는가?&lt;/h2>
-&lt;p>하울링은 간단히 말하면, &lt;strong>자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong>,&lt;br>
-그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;br>
-WebRTC는 &lt;code>getUserMedia&lt;/code>로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.&lt;/p>
-&lt;hr>
-&lt;h2 id="여러-방법을-시도해봤습니다">여러 방법을 시도해봤습니다&lt;/h2>
-&lt;p>처음에는 아래와 같은 해결책들을 시도했습니다:&lt;/p>
-&lt;ul>
-&lt;li>연결 직후 마이크를 자동으로 mute 처리&lt;/li>
-&lt;li>local stream과 remote stream을 분리해 렌더링&lt;/li>
-&lt;li>오디오 트랙만 따로 추적해서 제어&lt;/li>
-&lt;li>&lt;code>&amp;lt;audio muted /&amp;gt;&lt;/code> 설정 (그러나 의도대로 안 되는 경우도 많음)&lt;/li>
-&lt;/ul>
-&lt;p>하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>WebRTC on 블로그</title>
+    <link>http://localhost:1313/categories/webrtc/</link>
+    <description>Recent content in WebRTC on 블로그</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>ko</language>
+    <lastBuildDate>Sat, 03 Feb 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/webrtc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebRTC howling ...</title>
+      <link>http://localhost:1313/articles/webrtc-howling/</link>
+      <pubDate>Sat, 03 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/articles/webrtc-howling/</guid>
+      <description>&lt;h2 id=&#34;하울링은-왜-생기는가&#34;&gt;하울링은 왜 생기는가?&lt;/h2&gt;
+&lt;p&gt;하울링은 간단히 말하면, &lt;strong&gt;자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong&gt;,&lt;br&gt;
+그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;br&gt;
+WebRTC는 &lt;code&gt;getUserMedia&lt;/code&gt;로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;여러-방법을-시도해봤습니다&#34;&gt;여러 방법을 시도해봤습니다&lt;/h2&gt;
+&lt;p&gt;처음에는 아래와 같은 해결책들을 시도했습니다:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;연결 직후 마이크를 자동으로 mute 처리&lt;/li&gt;
+&lt;li&gt;local stream과 remote stream을 분리해 렌더링&lt;/li&gt;
+&lt;li&gt;오디오 트랙만 따로 추적해서 제어&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;lt;audio muted /&amp;gt;&lt;/code&gt; 설정 (그러나 의도대로 안 되는 경우도 많음)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

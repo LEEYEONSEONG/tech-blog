@@ -1,15 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Recoil on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/categories/recoil/</link><description>Recent content in Recoil on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/categories/recoil/index.xml" rel="self" type="application/rss+xml"/><item><title>Context API -> Recoil 성능 개선 과정</title><link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link><pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br>
-Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p>
-&lt;p>이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br>
-그리고 Recoil을 사용함으로써 &lt;strong>성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong>를 자세히 공유하려고 합니다.&lt;/p>
-&lt;hr>
-&lt;h2 id="왜-recoil이-필요했는가">왜 Recoil이 필요했는가&lt;/h2>
-&lt;p>이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.&lt;br>
-작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.&lt;/p></description></item><item><title>클라이언트와 서버 상태, 왜 분리했는가?</title><link>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</guid><description>&lt;p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;br>
-처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.&lt;br>
-하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.&lt;/p>
-&lt;hr>
-&lt;h2 id="context-api에서-발생한-문제">Context API에서 발생한 문제&lt;/h2>
-&lt;p>Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.&lt;br>
-이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.&lt;br>
-하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Recoil on 블로그</title>
+    <link>http://localhost:1313/categories/recoil/</link>
+    <description>Recent content in Recoil on 블로그</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>ko</language>
+    <lastBuildDate>Sun, 28 May 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/recoil/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Context API -&gt; Recoil 성능 개선 과정</title>
+      <link>http://localhost:1313/articles/context-recoil/</link>
+      <pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/articles/context-recoil/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;http://localhost:1313/articles/client-server-state&#34;&gt;이전 글&lt;/a&gt;에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br&gt;
+Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p&gt;
+&lt;p&gt;이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br&gt;
+그리고 Recoil을 사용함으로써 &lt;strong&gt;성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong&gt;를 자세히 공유하려고 합니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;왜-recoil이-필요했는가&#34;&gt;왜 Recoil이 필요했는가&lt;/h2&gt;
+&lt;p&gt;이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.&lt;br&gt;
+작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>클라이언트와 서버 상태, 왜 분리했는가?</title>
+      <link>http://localhost:1313/articles/client-server-state/</link>
+      <pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/articles/client-server-state/</guid>
+      <description>&lt;p&gt;프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;br&gt;
+처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.&lt;br&gt;
+하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;context-api에서-발생한-문제&#34;&gt;Context API에서 발생한 문제&lt;/h2&gt;
+&lt;p&gt;Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.&lt;br&gt;
+이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.&lt;br&gt;
+하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
