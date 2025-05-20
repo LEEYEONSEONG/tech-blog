@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>WebRTC on 블로그</title>
-    <link>http://localhost:1313/tech-blog/categories/webrtc/</link>
+    <link>https://leeyeonseong.github.io/tech-blog/categories/webrtc/</link>
     <description>Recent content in WebRTC on 블로그</description>
     <generator>Hugo -- 0.147.3</generator>
     <language>ko</language>
     <lastBuildDate>Sat, 03 Feb 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tech-blog/categories/webrtc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://leeyeonseong.github.io/tech-blog/categories/webrtc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WebRTC howling ...</title>
-      <link>http://localhost:1313/tech-blog/articles/webrtc-howling/</link>
+      <link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</link>
       <pubDate>Sat, 03 Feb 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/tech-blog/articles/webrtc-howling/</guid>
+      <guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</guid>
       <description>&lt;h2 id=&#34;하울링은-왜-생기는가&#34;&gt;하울링은 왜 생기는가?&lt;/h2&gt;
 &lt;p&gt;하울링은 간단히 말하면, &lt;strong&gt;자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong&gt;,&lt;br&gt;
 그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;br&gt;

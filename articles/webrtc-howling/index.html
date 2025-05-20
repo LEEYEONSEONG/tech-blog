@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/tech-blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=tech-blog/livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>WebRTC howling ... | 블로그</title>
 <meta name="keywords" content="">
 <meta name="description" content="하울링은 왜 생기는가?
@@ -22,16 +22,16 @@ local stream과 remote stream을 분리해 렌더링
 
 하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/tech-blog/articles/webrtc-howling/">
+<link rel="canonical" href="https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/">
 <link crossorigin="anonymous" href="/tech-blog/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/tech-blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/tech-blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/tech-blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/tech-blog/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/tech-blog/safari-pinned-tab.svg">
+<link rel="icon" href="https://leeyeonseong.github.io/tech-blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://leeyeonseong.github.io/tech-blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://leeyeonseong.github.io/tech-blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://leeyeonseong.github.io/tech-blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://leeyeonseong.github.io/tech-blog/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tech-blog/articles/webrtc-howling/">
+<link rel="alternate" hreflang="en" href="https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/">
 <noscript>
     <style>
         #theme-toggle,
@@ -68,7 +68,86 @@ local stream과 remote stream을 분리해 렌더링
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/">
+  <meta property="og:site_name" content="블로그">
+  <meta property="og:title" content="WebRTC howling ...">
+  <meta property="og:description" content="하울링은 왜 생기는가? 하울링은 간단히 말하면, 자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고,
+그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.
+WebRTC는 getUserMedia로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.
+여러 방법을 시도해봤습니다 처음에는 아래와 같은 해결책들을 시도했습니다:
+연결 직후 마이크를 자동으로 mute 처리 local stream과 remote stream을 분리해 렌더링 오디오 트랙만 따로 추적해서 제어 &lt;audio muted /&gt; 설정 (그러나 의도대로 안 되는 경우도 많음) 하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-02-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-02-03T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebRTC howling ...">
+<meta name="twitter:description" content="하울링은 왜 생기는가?
+하울링은 간단히 말하면, 자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고,
+그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.
+WebRTC는 getUserMedia로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.
+
+여러 방법을 시도해봤습니다
+처음에는 아래와 같은 해결책들을 시도했습니다:
+
+연결 직후 마이크를 자동으로 mute 처리
+local stream과 remote stream을 분리해 렌더링
+오디오 트랙만 따로 추적해서 제어
+&lt;audio muted /&gt; 설정 (그러나 의도대로 안 되는 경우도 많음)
+
+하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Articles",
+      "item": "https://leeyeonseong.github.io/tech-blog/articles/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "WebRTC howling ...",
+      "item": "https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "WebRTC howling ...",
+  "name": "WebRTC howling ...",
+  "description": "하울링은 왜 생기는가? 하울링은 간단히 말하면, 자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고,\n그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.\nWebRTC는 getUserMedia로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.\n여러 방법을 시도해봤습니다 처음에는 아래와 같은 해결책들을 시도했습니다:\n연결 직후 마이크를 자동으로 mute 처리 local stream과 remote stream을 분리해 렌더링 오디오 트랙만 따로 추적해서 제어 \u0026lt;audio muted /\u0026gt; 설정 (그러나 의도대로 안 되는 경우도 많음) 하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "하울링은 왜 생기는가? 하울링은 간단히 말하면, 자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고,\n그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.\nWebRTC는 getUserMedia로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.\n여러 방법을 시도해봤습니다 처음에는 아래와 같은 해결책들을 시도했습니다:\n연결 직후 마이크를 자동으로 mute 처리 local stream과 remote stream을 분리해 렌더링 오디오 트랙만 따로 추적해서 제어 설정 (그러나 의도대로 안 되는 경우도 많음) 하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.\n실제로 적용 방법 결론적으로 아래 두 가지 조합으로 문제를 대부분 해결할 수 있었습니다.\n1. getUserMedia constraints에 echoCancellation 옵션 추가 브라우저에서 기본 제공하는 오디오 필터 기능을 활용했습니다.\nnavigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, }, video: true, }); 이 옵션을 명시적으로 넣었더니, 브라우저가 하울링을 줄이기 위해 자체적으로 오디오를 필터링해줍니다. 그리고 로컬 오디오 렌더링을 방지하기 위해\nif (remoteUser.id !== localUser.id) { videoElement.srcObject = remoteStream; } 이 조건만 제대로 걸어줘도 자기 목소리를 다시 듣는 상황을 방지할 수 있었고, 하울링도 없어졌습니다.\n마무리하며 WebRTC는 브라우저 환경에 따라 동작 차이가 크고, 작은 설정 하나로 사용자 경험이 크게 달라지기 때문에 하울링 같은 문제는 조기에 잡아두는 게 중요합니다.\n이후에는 Agora SDK로 전환해 더 안정적인 연결 구조를 가져가게 되었지만, WebRTC 기반 구조에서도 기본 설정만 잘 해줘도 충분히 쓸 수 있다는 걸 경험했습니다.\n",
+  "wordCount" : "206",
+  "inLanguage": "en",
+  "datePublished": "2024-02-03T00:00:00Z",
+  "dateModified": "2024-02-03T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "블로그",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://leeyeonseong.github.io/tech-blog/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -86,7 +165,7 @@ local stream과 remote stream을 분리해 렌더링
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/tech-blog/" accesskey="h" title="블로그 (Alt + H)">블로그</a>
+            <a href="https://leeyeonseong.github.io/tech-blog/" accesskey="h" title="블로그 (Alt + H)">블로그</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -112,12 +191,12 @@ local stream과 remote stream을 분리해 렌더링
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/tech-blog/articles/" title="Articles">
+                <a href="https://leeyeonseong.github.io/tech-blog/articles/" title="Articles">
                     <span>Articles</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tech-blog/about/" title="About me">
+                <a href="https://leeyeonseong.github.io/tech-blog/about/" title="About me">
                     <span>About me</span>
                 </a>
             </li>
@@ -206,7 +285,7 @@ WebRTC 기반 구조에서도 기본 설정만 잘 해줘도 충분히 쓸 수 �
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="next" href="http://localhost:1313/tech-blog/articles/react-native-codepush/">
+  <a class="next" href="https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/">
     <span class="title">Next »</span>
     <br>
     <span>React Native에 CodePush 도입기</span>
@@ -218,7 +297,7 @@ WebRTC 기반 구조에서도 기본 설정만 잘 해줘도 충분히 쓸 수 �
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/tech-blog/">블로그</a></span> · 
+        <span>&copy; 2025 <a href="https://leeyeonseong.github.io/tech-blog/">블로그</a></span> · 
 
     <span>
         Powered by

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><script src="/tech-blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=tech-blog/livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>React Native에 CodePush 도입기 | 블로그</title>
 <meta name="keywords" content="">
 <meta name="description" content="React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요되는 일이 잦았습니다.
@@ -15,16 +15,16 @@
 Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.
 앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/tech-blog/articles/react-native-codepush/">
+<link rel="canonical" href="https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/">
 <link crossorigin="anonymous" href="/tech-blog/assets/css/stylesheet.f49d66caae9ea0fd43f21f29e71a8d3e284517ed770f2aa86fa012953ad3c9ef.css" integrity="sha256-9J1myq6eoP1D8h8p5xqNPihFF&#43;13Dyqob6ASlTrTye8=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/tech-blog/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/tech-blog/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/tech-blog/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/tech-blog/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/tech-blog/safari-pinned-tab.svg">
+<link rel="icon" href="https://leeyeonseong.github.io/tech-blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://leeyeonseong.github.io/tech-blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://leeyeonseong.github.io/tech-blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://leeyeonseong.github.io/tech-blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://leeyeonseong.github.io/tech-blog/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tech-blog/articles/react-native-codepush/">
+<link rel="alternate" hreflang="en" href="https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/">
 <noscript>
     <style>
         #theme-toggle,
@@ -61,7 +61,79 @@ Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Ov
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/">
+  <meta property="og:site_name" content="블로그">
+  <meta property="og:title" content="React Native에 CodePush 도입기">
+  <meta property="og:description" content="React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요되는 일이 잦았습니다.
+특히, 사용자(근로자)에게 주일 마다 피드백을 받아오는 상황에서 잦은 빈도로 업데이트되던 서비스였기 때문에, 이런 병목은 전체 업데이트 일정에 큰 영향을 끼쳤습니다.
+이러한 문제를 해결하기 위해 CodePush 기반의 무중단 배포 환경을 구축했습니다.
+왜 CodePush를 도입했는가 Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.
+앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.">
+  <meta property="og:locale" content="ko">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="articles">
+    <meta property="article:published_time" content="2024-01-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-01-20T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Native에 CodePush 도입기">
+<meta name="twitter:description" content="React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요되는 일이 잦았습니다.
+특히, 사용자(근로자)에게 주일 마다 피드백을 받아오는 상황에서 잦은 빈도로 업데이트되던 서비스였기 때문에, 이런 병목은 전체 업데이트 일정에 큰 영향을 끼쳤습니다.
+이러한 문제를 해결하기 위해 CodePush 기반의 무중단 배포 환경을 구축했습니다.
+
+왜 CodePush를 도입했는가
+Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.
+앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Articles",
+      "item": "https://leeyeonseong.github.io/tech-blog/articles/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "React Native에 CodePush 도입기",
+      "item": "https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "React Native에 CodePush 도입기",
+  "name": "React Native에 CodePush 도입기",
+  "description": "React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요되는 일이 잦았습니다.\n특히, 사용자(근로자)에게 주일 마다 피드백을 받아오는 상황에서 잦은 빈도로 업데이트되던 서비스였기 때문에, 이런 병목은 전체 업데이트 일정에 큰 영향을 끼쳤습니다.\n이러한 문제를 해결하기 위해 CodePush 기반의 무중단 배포 환경을 구축했습니다.\n왜 CodePush를 도입했는가 Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.\n앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요되는 일이 잦았습니다.\n특히, 사용자(근로자)에게 주일 마다 피드백을 받아오는 상황에서 잦은 빈도로 업데이트되던 서비스였기 때문에, 이런 병목은 전체 업데이트 일정에 큰 영향을 끼쳤습니다.\n이러한 문제를 해결하기 위해 CodePush 기반의 무중단 배포 환경을 구축했습니다.\n왜 CodePush를 도입했는가 Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.\n앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.\n도입 이전에 겪던 문제들 스토어 심사 지연 (평균 1~3일) 간단한 문구 변경이나 UI 수정도 전체 빌드 필요 QA 이후 빠르게 반영할 수 없는 운영 속도 참고 image : ingg.dev 도입 구조 및 파이프라인 설계 CodePush 도입 후 다음과 같이 디버그–스테이징–릴리즈 3단계 배포 파이프라인을 구성했습니다:\n각 단계는 다음의 역할을 가집니다:\n단계 설명 Debug 개발 환경에서 테스트, 로컬 디바이스 반영 Staging QA 팀 검증용, 내부 그룹 대상 배포 Release 실 사용자 대상 최종 배포 (스토어 심사 없이 실시간 반영) CodePush는 앱에 포함된 JS 번들만 교체하므로, 네이티브 코드가 바뀌지 않는 한 무중단으로 배포가 가능합니다.\nCodePush 배포 커맨드 CodePush는 App Center CLI를 통해 JS 번들을 OTA 방식으로 배포합니다.\nStaging → QA → Production 흐름으로 운영했습니다.\nStaging \u0026 promote 배포 예시 appcenter codepush release-react \\ -a your-org/your-app-android \\ -d Staging \\ --target-binary-version \"1.0.0\" \\ --description \"버튼 색상 수정\" appcenter codepush promote \\ -a your-org/your-app-android \\ -s Staging \\ -d Production \\ --description \"Staging 안정화 → 운영 배포\" Native 연동 참고 CodePush는 JS만으로 작동하지 않으며, 네이티브 설정이 반드시 필요합니다.\niOS: AppDelegate.m, Info.plist Android: MainApplication.java, build.gradle 📌 공식 가이드 참고: CodePush Setup Docs\n실제 적용 코드 App.tsx import CodePush, { DownloadProgress } from \"react-native-code-push\"; const App = () =\u003e { const [isUpdating, setIsUpdating] = useState(false); const [progress, setProgress] = useState(0); useEffect(() =\u003e { CodePush.sync( { installMode: CodePush.InstallMode.IMMEDIATE }, undefined, ({ receivedBytes, totalBytes }: DownloadProgress) =\u003e { setProgress(Math.floor((receivedBytes / totalBytes) * 100)); }, ); CodePush.checkForUpdate().then((update) =\u003e { setIsUpdating(!!update); }); }, []); return ( \u003cFragment\u003e ... {isUpdating ? ( \u003cCodePushProgressScreen progress={progress} /\u003e ) : ( \u003cTemplateNavigation /\u003e )} ... \u003c/Fragment\u003e ); }; export default CodePush({ checkFrequency: CodePush.CheckFrequency.MANUAL })( App, ); 커스텀 업데이트 화면 UI 구성 사용자에게 업데이트 상태를 명확히 안내하기 위해 진행률 표시 화면도 구성했습니다.\nCodePushProgressScreen.tsx const CodePushProgressScreen = ({ progress }) =\u003e ( \u003cContainerView\u003e ... \u003cLogoWrap\u003e \u003cLogo source={require(\"./img/ic-symbol-logo.png\")} /\u003e \u003cStringLogo source={require(\"./img/ic-logo.png\")} /\u003e \u003c/LogoWrap\u003e \u003cCodePushProgressText\u003e{`업데이트를 진행합니다. 진행률 ${progress}%`}\u003c/CodePushProgressText\u003e \u003cProgressBar\u003e \u003cInnerBar width={(progress * 188) / 100} /\u003e \u003c/ProgressBar\u003e ... \u003c/ContainerView\u003e ); 진행률 바의 넓이는 receivedBytes 기준으로 계산 진행 중인 상태를 명확히 안내하여 사용자 혼란 방지 CodePush 종료 예정 안내 Microsoft는 2025년 3월 31일부로 App Center 서비스 종료를 발표했습니다.\n이에 따라 CodePush 기능도 포함되어 중단될 예정입니다.\n자세한 내용은 공식 종료 안내를 참고하세요.\n이후에는 다음과 같은 대안이 고려될 수 있습니다:\nExpo OTA Updates 자체 CDN 기반 JS 번들 배포 시스템 구축 App Store / Google Play 배포를 위한 Fastlane 기반 자동화 스크립트 구성 마무리하며 CodePush 도입은 단순한 라이브러리 추가를 넘어,\n배포 구조 개선, 운영 효율성 향상, 그리고 사용자 경험 향상이라는 실질적인 효과를 만들어냈습니다.\n특히, 스토어 심사 없이 JS 레이어만 업데이트 가능한 구조는\n빠르게 움직이는 서비스 환경에서 매우 유효한 선택이었습니다.\n현재는 종료를 앞두고 있지만, 이 경험을 통해\nOTA 업데이트의 원리와 UX 설계 포인트를 더 깊이 이해할 수 있었고,\n향후 Expo, Fastlane, CDN 기반 배포 전략에도 적용할 기반이 되었습니다.\n",
+  "wordCount" : "523",
+  "inLanguage": "en",
+  "datePublished": "2024-01-20T00:00:00Z",
+  "dateModified": "2024-01-20T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "블로그",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://leeyeonseong.github.io/tech-blog/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -79,7 +151,7 @@ Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Ov
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/tech-blog/" accesskey="h" title="블로그 (Alt + H)">블로그</a>
+            <a href="https://leeyeonseong.github.io/tech-blog/" accesskey="h" title="블로그 (Alt + H)">블로그</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -105,12 +177,12 @@ Microsoft에서 제공하는 CodePush는 React Native 앱의 JS 번들만 OTA(Ov
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/tech-blog/articles/" title="Articles">
+                <a href="https://leeyeonseong.github.io/tech-blog/articles/" title="Articles">
                     <span>Articles</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/tech-blog/about/" title="About me">
+                <a href="https://leeyeonseong.github.io/tech-blog/about/" title="About me">
                     <span>About me</span>
                 </a>
             </li>
@@ -330,12 +402,12 @@ Staging → QA → Production 흐름으로 운영했습니다.</p>
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/tech-blog/articles/webrtc-howling/">
+  <a class="prev" href="https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/">
     <span class="title">« Prev</span>
     <br>
     <span>WebRTC howling ...</span>
   </a>
-  <a class="next" href="http://localhost:1313/tech-blog/articles/context-recoil/">
+  <a class="next" href="https://leeyeonseong.github.io/tech-blog/articles/context-recoil/">
     <span class="title">Next »</span>
     <br>
     <span>Context API -&gt; Recoil 성능 개선 과정</span>
@@ -347,7 +419,7 @@ Staging → QA → Production 흐름으로 운영했습니다.</p>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/tech-blog/">블로그</a></span> · 
+        <span>&copy; 2025 <a href="https://leeyeonseong.github.io/tech-blog/">블로그</a></span> · 
 
     <span>
         Powered by
