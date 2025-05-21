@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Deployment on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/categories/deployment/</link><description>Recent content in Deployment on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Sat, 20 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/categories/deployment/index.xml" rel="self" type="application/rss+xml"/><item><title>React Native에 CodePush 도입기</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/</link><pubDate>Sat, 20 Jan 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/</guid><description>&lt;p>React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 &lt;strong>Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요&lt;/strong>되는 일이 잦았습니다.&lt;/p>
+&lt;p>특히, 사용자(근로자)에게 주일 마다 피드백을 받아오는 상황에서 잦은 빈도로 업데이트되던 서비스였기 때문에, 이런 병목은 전체 업데이트 일정에 큰 영향을 끼쳤습니다.&lt;/p>
+&lt;p>이러한 문제를 해결하기 위해 &lt;strong>CodePush 기반의 무중단 배포 환경&lt;/strong>을 구축했습니다.&lt;/p>
+&lt;hr>
+&lt;h2 id="왜-codepush를-도입했는가">왜 CodePush를 도입했는가&lt;/h2>
+&lt;p>Microsoft에서 제공하는 &lt;a href="https://microsoft.github.io/code-push/">CodePush&lt;/a>는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.&lt;/p>
+&lt;p>앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.&lt;/p></description></item></channel></rss>

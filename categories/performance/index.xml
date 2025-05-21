@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Performance on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/categories/performance/</link><description>Recent content in Performance on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Tue, 02 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/categories/performance/index.xml" rel="self" type="application/rss+xml"/><item><title>react-virtualized로 대용량 리스트 렌더링 최적화하기</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-virtualized/</link><pubDate>Tue, 02 Apr 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-virtualized/</guid><description>&lt;p>react-virtualized를 적용하며 성능 개선한 내용을 정리해보려고 한다.&lt;/p>
+&lt;p>단순히 가상화 리스트를 도입한 것에서 그치지 않고, Chrome 개발자 도구를 통해 메모리 구조와 GC 작동 방식까지 추적하며 성능 최적화가 실제로 어떤 효과를 가져오는지를 직접 비교해봤습니다.&lt;/p>
+&lt;hr>
+&lt;h2 id="대용량-리스트-렌더링-문제는-성능과-메모리였다">대용량 리스트 렌더링, 문제는 성능과 메모리였다&lt;/h2>
+&lt;p>프로젝트에서 최대 10만개에 이르는 오디오 스크립트 데이터를 한 번에 보여줘야 했습니다..
+레거시 프로젝트에선 단순히 &lt;code>.map()&lt;/code>을 통해 리스트를 출력하는 방식으로 개발 되었었지만, 예상대로 다음과 같은 문제가 있었다.&lt;/p>
+&lt;ul>
+&lt;li>스크롤 시 끊김 현상 발생&lt;/li>
+&lt;li>DevTools의 JavasScript Heap 메모리 지속 증가&lt;/li>
+&lt;li>사용자 경험(UX) 저하&lt;/li>
+&lt;/ul>
+&lt;p>이런 상황이 존재하여 성능 최적화 및 리스트 가상화 도입을 하게 되었다.&lt;/p></description></item></channel></rss>
