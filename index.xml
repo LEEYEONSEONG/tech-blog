@@ -25,7 +25,24 @@
 &lt;hr>
 &lt;h2 id="왜-codepush를-도입했는가">왜 CodePush를 도입했는가&lt;/h2>
 &lt;p>Microsoft에서 제공하는 &lt;a href="https://microsoft.github.io/code-push/">CodePush&lt;/a>는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.&lt;/p>
-&lt;p>앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.&lt;/p></description></item><item><title>해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</link><pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</guid><description>&lt;p>영상 연결 시스템을 운영하면서 가장 중요하게 다가온 이슈는 &lt;strong>실시간 연결의 안정성&lt;/strong>이었다.&lt;/p>
+&lt;p>앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.&lt;/p></description></item><item><title>Next.js에서의 styled-components SSR 이슈와 해결</title><link>https://leeyeonseong.github.io/tech-blog/articles/styled-components-ssr/</link><pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/styled-components-ssr/</guid><description>&lt;p>Next.js 프로젝트(v12)에서 &lt;code>styled-components&lt;/code>를 적용하며 발생한 &lt;strong>스타일 FOUC(Flash of Unstyled Content)&lt;/strong> 문제와 이를 해결한 과정을 정리했습니다.&lt;/p>
+&lt;hr>
+&lt;h2 id="문제-상황-ssr-환경에서의-스타일-미적용">문제 상황: SSR 환경에서의 스타일 미적용&lt;/h2>
+&lt;p>Next.js는 기본적으로 &lt;strong>서버 사이드 렌더링(SSR)&lt;/strong> 을 지원하며, 초기 페이지 로드 시 HTML을 미리 생성해 클라이언트에 전달합니다.&lt;/p>
+&lt;p>프로젝트 초기에 아래와 같은 문제가 발생했습니다:&lt;/p>
+&lt;ul>
+&lt;li>새로고침 시 &lt;strong>스타일이 적용되지 않은 HTML이 먼저 렌더링&lt;/strong>됨&lt;/li>
+&lt;li>이후 JS가 로드되면서 styled-components 스타일이 적용됨&lt;/li>
+&lt;li>사용자 입장에서 &lt;strong>순간적으로 깨진 UI&lt;/strong>가 보이는 경험을 하게 됨&lt;/li>
+&lt;/ul>
+&lt;p>이는 흔히 말하는 &lt;strong>FOUC (Flash of Unstyled Content)&lt;/strong> 플리커 현상으로, SSR 환경에서 &lt;code>styled-components&lt;/code>를 사용할 때 자주 발생하는 이슈입니다.&lt;/p></description></item><item><title>Context API -> Recoil 성능 개선 과정</title><link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link><pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br>
+Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p>
+&lt;p>이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br>
+그리고 Recoil을 사용함으로써 &lt;strong>성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong>를 자세히 공유하려고 합니다.&lt;/p>
+&lt;hr>
+&lt;h2 id="왜-recoil이-필요했는가">왜 Recoil이 필요했는가&lt;/h2>
+&lt;p>이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.&lt;br>
+작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.&lt;/p></description></item><item><title>해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</link><pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</guid><description>&lt;p>영상 연결 시스템을 운영하면서 가장 중요하게 다가온 이슈는 &lt;strong>실시간 연결의 안정성&lt;/strong>이었다.&lt;/p>
 &lt;p>특히 네트워크 환경이 불안정한 지역에서는 WebRTC 연결이 실패하거나, 연결되더라도 영상이 나타나지 않는 경우가 &lt;strong>간헐적으로&lt;/strong> 발생했다.&lt;/p>
 &lt;p>실시간 연결 도중의 끊김도 문제였지만, &lt;strong>초기 연결 자체가 되지 않는 상황은 더 치명적&lt;/strong>이었다.&lt;/p>
 &lt;hr>
@@ -49,24 +66,7 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>... &lt;span style="color:#a6e22e">answer&lt;/span>, &lt;span style="color:#a6e22e">addIceCandidate&lt;/span>, &lt;span style="color:#a6e22e">ontrack&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p></description></item><item><title>Context API -> Recoil 성능 개선 과정</title><link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link><pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br>
-Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p>
-&lt;p>이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br>
-그리고 Recoil을 사용함으로써 &lt;strong>성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong>를 자세히 공유하려고 합니다.&lt;/p>
-&lt;hr>
-&lt;h2 id="왜-recoil이-필요했는가">왜 Recoil이 필요했는가&lt;/h2>
-&lt;p>이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.&lt;br>
-작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.&lt;/p></description></item><item><title>Next.js에서의 styled-components SSR 이슈와 해결</title><link>https://leeyeonseong.github.io/tech-blog/articles/styled-components-ssr/</link><pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/styled-components-ssr/</guid><description>&lt;p>Next.js 프로젝트(v12)에서 &lt;code>styled-components&lt;/code>를 적용하며 발생한 &lt;strong>스타일 FOUC(Flash of Unstyled Content)&lt;/strong> 문제와 이를 해결한 과정을 정리했습니다.&lt;/p>
-&lt;hr>
-&lt;h2 id="문제-상황-ssr-환경에서의-스타일-미적용">문제 상황: SSR 환경에서의 스타일 미적용&lt;/h2>
-&lt;p>Next.js는 기본적으로 &lt;strong>서버 사이드 렌더링(SSR)&lt;/strong> 을 지원하며, 초기 페이지 로드 시 HTML을 미리 생성해 클라이언트에 전달합니다.&lt;/p>
-&lt;p>프로젝트 초기에 아래와 같은 문제가 발생했습니다:&lt;/p>
-&lt;ul>
-&lt;li>새로고침 시 &lt;strong>스타일이 적용되지 않은 HTML이 먼저 렌더링&lt;/strong>됨&lt;/li>
-&lt;li>이후 JS가 로드되면서 styled-components 스타일이 적용됨&lt;/li>
-&lt;li>사용자 입장에서 &lt;strong>순간적으로 깨진 UI&lt;/strong>가 보이는 경험을 하게 됨&lt;/li>
-&lt;/ul>
-&lt;p>이는 흔히 말하는 &lt;strong>FOUC (Flash of Unstyled Content)&lt;/strong> 플리커 현상으로, SSR 환경에서 &lt;code>styled-components&lt;/code>를 사용할 때 자주 발생하는 이슈입니다.&lt;/p></description></item><item><title>Context API 대신 React Query를 선택한 이유</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/</link><pubDate>Fri, 28 Apr 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 Recoil 활용해 클라이언트 상태를 정리했던 이야기를 남긴 적이 있다.&lt;br>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p></description></item><item><title>Context API 대신 React Query를 선택한 이유</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/</link><pubDate>Fri, 28 Apr 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 Recoil 활용해 클라이언트 상태를 정리했던 이야기를 남긴 적이 있다.&lt;br>
 이번에는 같은 프로젝트 내에서 서버 상태를 다루는 방식에 대해 정리해보려 한다.&lt;/p>
 &lt;hr>
 &lt;h2 id="context-api를-빠르게-선택했던-이유">Context API를 빠르게 선택했던 이유&lt;/h2>
