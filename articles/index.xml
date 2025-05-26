@@ -10,9 +10,9 @@
 &lt;li>사용자 경험(UX) 저하&lt;/li>
 &lt;/ul>
 &lt;p>이런 상황이 존재하여 성능 최적화 및 리스트 가상화 도입을 하게 되었다.&lt;/p></description></item><item><title>WebRTC howling ...</title><link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</link><pubDate>Sat, 03 Feb 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</guid><description>&lt;h2 id="하울링은-왜-생기는가">하울링은 왜 생기는가?&lt;/h2>
-&lt;p>하울링은 간단히 말하면, &lt;strong>자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong>,&lt;br>
-그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;br>
-WebRTC는 &lt;code>getUserMedia&lt;/code>로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.&lt;/p>
+&lt;p>하울링은 간단히 말하면, &lt;strong>자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong>,&lt;/p>
+&lt;p>그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;/p>
+&lt;p>WebRTC는 &lt;code>getUserMedia&lt;/code>로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.&lt;/p>
 &lt;hr>
 &lt;h2 id="여러-방법을-시도해봤습니다">여러 방법을 시도해봤습니다&lt;/h2>
 &lt;p>처음에는 아래와 같은 해결책들을 시도했습니다:&lt;/p>
@@ -28,7 +28,14 @@ WebRTC는 &lt;code>getUserMedia&lt;/code>로 마이크와 카메라를 활성화
 &lt;hr>
 &lt;h2 id="왜-codepush를-도입했는가">왜 CodePush를 도입했는가&lt;/h2>
 &lt;p>Microsoft에서 제공하는 &lt;a href="https://microsoft.github.io/code-push/">CodePush&lt;/a>는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.&lt;/p>
-&lt;p>앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.&lt;/p></description></item><item><title>Context API -> Recoil 성능 개선 과정</title><link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link><pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br>
+&lt;p>앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.&lt;/p></description></item><item><title>해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</link><pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</guid><description>&lt;p>영상 연결 시스템을 운영하면서 가장 중요하게 다가온 이슈는 &lt;strong>실시간 연결의 안정성&lt;/strong>이었다.&lt;/p>
+&lt;p>특히 네트워크 환경이 불안정한 지역에서는 WebRTC 연결이 실패하거나, 연결되더라도 영상이 나타나지 않는 경우가 &lt;strong>간헐적으로&lt;/strong> 발생했다.&lt;/p>
+&lt;p>진료 도중 끊김도 문제였지만, &lt;strong>진료 전 연결 자체가 되지 않는 상황은 그보다 더 치명적&lt;/strong>이었다.&lt;/p>
+&lt;hr>
+&lt;h2 id="진료-단계에서-발견된-간헐적-연결-문제">진료 단계에서 발견된 간헐적 연결 문제&lt;/h2>
+&lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE protocol을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;br>
+우리는 별도의 TURN 인프라 없이, 공용 STUN 서버만을 사용해 직접 연결(P2P)을 시도했다.&lt;/p>
+&lt;p>해외 지역내의 네트워크를 사용하는 사용자 영상 연결 기능에서 다음과 같은 현상이 &lt;strong>간헐적으로&lt;/strong> 발생했다:&lt;/p></description></item><item><title>Context API -> Recoil 성능 개선 과정</title><link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link><pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br>
 Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p>
 &lt;p>이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br>
 그리고 Recoil을 사용함으로써 &lt;strong>성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong>를 자세히 공유하려고 합니다.&lt;/p>
