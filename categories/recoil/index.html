@@ -3,8 +3,8 @@
 Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.
 이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,
 그리고 Recoil을 사용함으로써 성능 측면에서 어떤 개선 효과가 있었는지를 자세히 공유하려고 합니다.
-왜 Recoil이 필요했는가 이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였다.
-작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다. 하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.
+왜 Recoil이 필요했는가 이전 글에서 언급했듯이 처음에는 Context API만으로도 충분해 보였습니다. 작은 단위의 상태들을 중앙에서 관리하고, 빠르게 구조화할 수 있었기 때문이다.
+하지만 프로젝트가 커지고 기능이 쌓이면서, Context를 사용하는 컴포넌트가 많아지고, 하나의 값 변경에도 여러 곳에서 렌더링이 발생하기 시작했다.
 ...</p></div><footer class=entry-footer><span title='2023-05-28 00:00:00 +0000 UTC'>May 28, 2023</span></footer><a class=entry-link aria-label="post link to Context API -> Recoil 성능 개선 과정" href=https://leeyeonseong.github.io/tech-blog/articles/context-recoil/></a></article><article class="post-entry tag-entry"><header class=entry-header><h2 class=entry-hint-parent>클라이언트와 서버 상태, 왜 분리했는가?</h2></header><div class=entry-content><p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
 처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.
