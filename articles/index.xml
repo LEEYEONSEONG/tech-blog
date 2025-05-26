@@ -27,12 +27,12 @@
 &lt;p>Microsoft에서 제공하는 &lt;a href="https://microsoft.github.io/code-push/">CodePush&lt;/a>는 React Native 앱의 JS 번들만 OTA(Over-the-Air) 방식으로 배포할 수 있도록 해주는 서비스입니다.&lt;/p>
 &lt;p>앱을 재설치하거나 스토어 심사를 거치지 않고도 즉각적인 업데이트가 가능한 구조입니다.&lt;/p></description></item><item><title>해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</link><pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</guid><description>&lt;p>영상 연결 시스템을 운영하면서 가장 중요하게 다가온 이슈는 &lt;strong>실시간 연결의 안정성&lt;/strong>이었다.&lt;/p>
 &lt;p>특히 네트워크 환경이 불안정한 지역에서는 WebRTC 연결이 실패하거나, 연결되더라도 영상이 나타나지 않는 경우가 &lt;strong>간헐적으로&lt;/strong> 발생했다.&lt;/p>
-&lt;p>진료 도중 끊김도 문제였지만, &lt;strong>진료 전 연결 자체가 되지 않는 상황은 그보다 더 치명적&lt;/strong>이었다.&lt;/p>
+&lt;p>실시간 연결 도중의 끊김도 문제였지만, &lt;strong>초기 연결 자체가 되지 않는 상황은 더 치명적&lt;/strong>이었다.&lt;/p>
 &lt;hr>
-&lt;h2 id="진료-단계에서-발견된-간헐적-연결-문제">진료 단계에서 발견된 간헐적 연결 문제&lt;/h2>
-&lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE protocol을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;br>
+&lt;h2 id="연결-단계에서-발견된-간헐적-연결-문제">연결 단계에서 발견된 간헐적 연결 문제&lt;/h2>
+&lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE 프로토콜을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;br>
 우리는 별도의 TURN 인프라 없이, 공용 STUN 서버만을 사용해 직접 연결(P2P)을 시도했다.&lt;/p>
-&lt;p>해외 지역내의 네트워크를 사용하는 사용자 영상 연결 기능에서 다음과 같은 현상이 &lt;strong>간헐적으로&lt;/strong> 발생했다:&lt;/p></description></item><item><title>Context API -> Recoil 성능 개선 과정</title><link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link><pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br>
+&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p></description></item><item><title>Context API -> Recoil 성능 개선 과정</title><link>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</link><pubDate>Sun, 28 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/context-recoil/</guid><description>&lt;p>&lt;a href="https://leeyeonseong.github.io/tech-blog/articles/client-server-state">이전 글&lt;/a>에서 클라이언트 상태와 서버 상태를 분리하는 과정에서&lt;br>
 Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.&lt;/p>
 &lt;p>이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,&lt;br>
 그리고 Recoil을 사용함으로써 &lt;strong>성능 측면에서 어떤 개선 효과가 있었는지&lt;/strong>를 자세히 공유하려고 합니다.&lt;/p>

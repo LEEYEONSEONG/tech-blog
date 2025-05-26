@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Socket.io on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/tags/socket.io/</link><description>Recent content in Socket.io on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Sun, 23 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/tags/socket.io/index.xml" rel="self" type="application/rss+xml"/><item><title>해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</link><pubDate>Sun, 23 Jul 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</guid><description>&lt;p>영상 연결 시스템을 운영하면서 가장 중요하게 다가온 이슈는 &lt;strong>실시간 연결의 안정성&lt;/strong>이었다.&lt;/p>
 &lt;p>특히 네트워크 환경이 불안정한 지역에서는 WebRTC 연결이 실패하거나, 연결되더라도 영상이 나타나지 않는 경우가 &lt;strong>간헐적으로&lt;/strong> 발생했다.&lt;/p>
-&lt;p>진료 도중 끊김도 문제였지만, &lt;strong>진료 전 연결 자체가 되지 않는 상황은 그보다 더 치명적&lt;/strong>이었다.&lt;/p>
+&lt;p>실시간 연결 도중의 끊김도 문제였지만, &lt;strong>초기 연결 자체가 되지 않는 상황은 더 치명적&lt;/strong>이었다.&lt;/p>
 &lt;hr>
-&lt;h2 id="진료-단계에서-발견된-간헐적-연결-문제">진료 단계에서 발견된 간헐적 연결 문제&lt;/h2>
-&lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE protocol을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;br>
+&lt;h2 id="연결-단계에서-발견된-간헐적-연결-문제">연결 단계에서 발견된 간헐적 연결 문제&lt;/h2>
+&lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE 프로토콜을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;br>
 우리는 별도의 TURN 인프라 없이, 공용 STUN 서버만을 사용해 직접 연결(P2P)을 시도했다.&lt;/p>
-&lt;p>해외 지역내의 네트워크를 사용하는 사용자 영상 연결 기능에서 다음과 같은 현상이 &lt;strong>간헐적으로&lt;/strong> 발생했다:&lt;/p></description></item></channel></rss>
+&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p></description></item></channel></rss>
