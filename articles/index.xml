@@ -9,20 +9,17 @@
 &lt;li>DevTools의 JavasScript Heap 메모리 지속 증가&lt;/li>
 &lt;li>사용자 경험(UX) 저하&lt;/li>
 &lt;/ul>
-&lt;p>이런 상황이 존재하여 성능 최적화 및 리스트 가상화 도입을 하게 되었다.&lt;/p></description></item><item><title>WebRTC howling ...</title><link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</link><pubDate>Sat, 03 Feb 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</guid><description>&lt;h2 id="하울링은-왜-생기는가">하울링은 왜 생기는가?&lt;/h2>
-&lt;p>하울링은 간단히 말하면, &lt;strong>자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong>,&lt;/p>
-&lt;p>그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;/p>
-&lt;p>WebRTC는 &lt;code>getUserMedia&lt;/code>로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.&lt;/p>
+&lt;p>이런 상황이 존재하여 성능 최적화 및 리스트 가상화 도입을 하게 되었다.&lt;/p></description></item><item><title>WebRTC에서 Agora로: 왜 Agora SDK를 선택했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-agorasdk/</link><pubDate>Mon, 26 Feb 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-agorasdk/</guid><description>&lt;p>실시간 영상 통신을 안정적으로 서비스하는 것은 생각보다 복잡했습니다. 특히 네트워크 환경이 불안정한 해외 사용자를 대상으로 할 경우, 그 어려움은 더 커집니다.&lt;/p>
+&lt;p>이번 글에서는 기존 WebRTC 기반 1:1 연결 구조에서 Agora RTC SDK로 전환하게 된 계기와, 그 과정에서 네트워크 품질 측정과 Agora 구조를 소개하고자 합니다.&lt;/p>
 &lt;hr>
-&lt;h2 id="여러-방법을-시도해봤습니다">여러 방법을 시도해봤습니다&lt;/h2>
-&lt;p>처음에는 아래와 같은 해결책들을 시도했습니다:&lt;/p>
+&lt;h2 id="왜-agora-sdk-였을까">왜 Agora SDK 였을까?&lt;/h2>
+&lt;p>기존 WebRTC 기반 연결 구조는 다음과 같은 문제점을 가지고 있었습니다.&lt;/p>
 &lt;ul>
-&lt;li>연결 직후 마이크를 자동으로 mute 처리&lt;/li>
-&lt;li>local stream과 remote stream을 분리해 렌더링&lt;/li>
-&lt;li>오디오 트랙만 따로 추적해서 제어&lt;/li>
-&lt;li>&lt;code>&amp;lt;audio muted /&amp;gt;&lt;/code> 설정 (그러나 의도대로 안 되는 경우도 많음)&lt;/li>
+&lt;li>&lt;strong>STUN/TURN 서버 인프라 구축 비용 증가&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>해외 네트워크 접속 불안정&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>연결 전 품질 측정의 어려움&lt;/strong>&lt;/li>
 &lt;/ul>
-&lt;p>하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p></description></item><item><title>React Native에 CodePush 도입기</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/</link><pubDate>Sat, 20 Jan 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/</guid><description>&lt;p>React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 &lt;strong>Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요&lt;/strong>되는 일이 잦았습니다.&lt;/p>
+&lt;p>👉 &lt;a href="https://leeyeonseong.github.io/tech-blog/articles/socket-issue/">이전 글: 해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?&lt;/a>&lt;/p></description></item><item><title>React Native에 CodePush 도입기</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/</link><pubDate>Sat, 20 Jan 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-native-codepush/</guid><description>&lt;p>React Native 기반 앱 프로젝트를 운영하면서, Store 심사 지연으로 인해 &lt;strong>Hotfix 배포나 간단한 UI 수정조차 수일 이상 소요&lt;/strong>되는 일이 잦았습니다.&lt;/p>
 &lt;p>특히, 사용자(근로자)에게 주일 마다 피드백을 받아오는 상황에서 잦은 빈도로 업데이트되던 서비스였기 때문에, 이런 병목은 전체 업데이트 일정에 큰 영향을 끼쳤습니다.&lt;/p>
 &lt;p>이러한 문제를 해결하기 위해 &lt;strong>CodePush 기반의 무중단 배포 환경&lt;/strong>을 구축했습니다.&lt;/p>
 &lt;hr>
@@ -59,7 +56,20 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
 &lt;p>처음 프로젝트를 시작할 때는 아주 간단한 요구사항만 있었기 때문에, 굳이 무거운 상태 관리 라이브러리를 도입하지 않고 Context API만으로 충분하다고 판단했다.&lt;br>
 속도를 중시한 결정이었다. 실제로 빠르게 결과물을 만들 수 있었고, 배포도 문제없이 진행됐다.&lt;/p>
 &lt;p>하지만 이후 사업이 확장되며 기능이 하나씩 추가되기 시작했고, 그때부터 context 구조가 무겁게 느껴지기 시작했다.&lt;br>
-추가되는 context마다 리렌더링 범위가 넓어졌고, UI 단위에서만 필요한 데이터까지 전역에 얹히는 구조가 되었다.&lt;/p></description></item><item><title>클라이언트와 서버 상태, 왜 분리했는가?</title><link>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</guid><description>&lt;p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;br>
+추가되는 context마다 리렌더링 범위가 넓어졌고, UI 단위에서만 필요한 데이터까지 전역에 얹히는 구조가 되었다.&lt;/p></description></item><item><title>WebRTC howling ...</title><link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</link><pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</guid><description>&lt;h2 id="하울링은-왜-생기는가">하울링은 왜 생기는가?&lt;/h2>
+&lt;p>하울링은 간단히 말하면, &lt;strong>자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong>,&lt;/p>
+&lt;p>그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;/p>
+&lt;p>WebRTC는 &lt;code>getUserMedia&lt;/code>로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.&lt;/p>
+&lt;hr>
+&lt;h2 id="여러-방법을-시도해봤습니다">여러 방법을 시도해봤습니다&lt;/h2>
+&lt;p>처음에는 아래와 같은 해결책들을 시도했습니다:&lt;/p>
+&lt;ul>
+&lt;li>연결 직후 마이크를 자동으로 mute 처리&lt;/li>
+&lt;li>local stream과 remote stream을 분리해 렌더링&lt;/li>
+&lt;li>오디오 트랙만 따로 추적해서 제어&lt;/li>
+&lt;li>&lt;code>&amp;lt;audio muted /&amp;gt;&lt;/code> 설정 (그러나 의도대로 안 되는 경우도 많음)&lt;/li>
+&lt;/ul>
+&lt;p>하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p></description></item><item><title>클라이언트와 서버 상태, 왜 분리했는가?</title><link>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</guid><description>&lt;p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;br>
 처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.&lt;br>
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.&lt;/p>
 &lt;hr>

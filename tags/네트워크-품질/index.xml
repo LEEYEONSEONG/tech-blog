@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>네트워크 품질 on 블로그</title>
+    <link>http://localhost:1313/tech-blog/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%92%88%EC%A7%88/</link>
+    <description>Recent content in 네트워크 품질 on 블로그</description>
+    <generator>Hugo -- 0.147.3</generator>
+    <language>ko</language>
+    <lastBuildDate>Mon, 26 May 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tech-blog/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%ED%92%88%EC%A7%88/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WebRTC에서 Agora로: 왜 우리는 Agora를 선택했을까?</title>
+      <link>http://localhost:1313/tech-blog/articles/react-agorasdk/</link>
+      <pubDate>Mon, 26 May 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tech-blog/articles/react-agorasdk/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

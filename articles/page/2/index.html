@@ -9,7 +9,12 @@ Context API를 빠르게 선택했던 이유 처음 프로젝트를 시작할 �
 속도를 중시한 결정이었다. 실제로 빠르게 결과물을 만들 수 있었고, 배포도 문제없이 진행됐다.
 하지만 이후 사업이 확장되며 기능이 하나씩 추가되기 시작했고, 그때부터 context 구조가 무겁게 느껴지기 시작했다.
 추가되는 context마다 리렌더링 범위가 넓어졌고, UI 단위에서만 필요한 데이터까지 전역에 얹히는 구조가 되었다.
-...</p></div><footer class=entry-footer><span title='2023-04-28 00:00:00 +0000 UTC'>April 28, 2023</span></footer><a class=entry-link aria-label="post link to Context API 대신 React Query를 선택한 이유" href=https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>클라이언트와 서버 상태, 왜 분리했는가?</h2></header><div class=entry-content><p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
+...</p></div><footer class=entry-footer><span title='2023-04-28 00:00:00 +0000 UTC'>April 28, 2023</span></footer><a class=entry-link aria-label="post link to Context API 대신 React Query를 선택한 이유" href=https://leeyeonseong.github.io/tech-blog/articles/react-query-migration/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>WebRTC howling ...</h2></header><div class=entry-content><p>하울링은 왜 생기는가? 하울링은 간단히 말하면, 자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고,
+그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.
+WebRTC는 getUserMedia로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.
+여러 방법을 시도해봤습니다 처음에는 아래와 같은 해결책들을 시도했습니다:
+연결 직후 마이크를 자동으로 mute 처리 local stream과 remote stream을 분리해 렌더링 오디오 트랙만 따로 추적해서 제어 &lt;audio muted /> 설정 (그러나 의도대로 안 되는 경우도 많음) 하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.
+...</p></div><footer class=entry-footer><span title='2023-04-03 00:00:00 +0000 UTC'>April 3, 2023</span></footer><a class=entry-link aria-label="post link to WebRTC howling ..." href=https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>클라이언트와 서버 상태, 왜 분리했는가?</h2></header><div class=entry-content><p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
 처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.
 Context API에서 발생한 문제 Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.

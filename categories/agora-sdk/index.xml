@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Agora SDK on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/categories/agora-sdk/</link><description>Recent content in Agora SDK on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Mon, 26 Feb 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/categories/agora-sdk/index.xml" rel="self" type="application/rss+xml"/><item><title>WebRTC에서 Agora로: 왜 Agora SDK를 선택했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-agorasdk/</link><pubDate>Mon, 26 Feb 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-agorasdk/</guid><description>&lt;p>실시간 영상 통신을 안정적으로 서비스하는 것은 생각보다 복잡했습니다. 특히 네트워크 환경이 불안정한 해외 사용자를 대상으로 할 경우, 그 어려움은 더 커집니다.&lt;/p>
+&lt;p>이번 글에서는 기존 WebRTC 기반 1:1 연결 구조에서 Agora RTC SDK로 전환하게 된 계기와, 그 과정에서 네트워크 품질 측정과 Agora 구조를 소개하고자 합니다.&lt;/p>
+&lt;hr>
+&lt;h2 id="왜-agora-sdk-였을까">왜 Agora SDK 였을까?&lt;/h2>
+&lt;p>기존 WebRTC 기반 연결 구조는 다음과 같은 문제점을 가지고 있었습니다.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>STUN/TURN 서버 인프라 구축 비용 증가&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>해외 네트워크 접속 불안정&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>연결 전 품질 측정의 어려움&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>👉 &lt;a href="https://leeyeonseong.github.io/tech-blog/articles/socket-issue/">이전 글: 해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?&lt;/a>&lt;/p></description></item></channel></rss>
