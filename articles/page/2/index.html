@@ -20,7 +20,13 @@ WebRTC는 getUserMedia로 마이크와 카메라를 활성화하고, 실시간�
 Context API에서 발생한 문제 Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.
 이 문제를 해결하기 위해 Provider를 잘게 쪼개는 방식으로 대응해보기도 했습니다.
 하지만 상태가 많아지고, 각각의 의존성을 분리해야 하는 상황에서는 점점 코드가 복잡해졌습니다.
-...</p></div><footer class=entry-footer><span title='2023-03-24 00:00:00 +0000 UTC'>March 24, 2023</span></footer><a class=entry-link aria-label="post link to 클라이언트와 서버 상태, 왜 분리했는가?" href=https://leeyeonseong.github.io/tech-blog/articles/client-server-state/></a></article><footer class=page-footer><nav class=pagination><a class=prev href=https://leeyeonseong.github.io/tech-blog/articles/>«&nbsp;Prev&nbsp;</a></nav></footer></main><footer class=footer><span>&copy; 2025 <a href=https://leeyeonseong.github.io/tech-blog/>블로그</a></span> ·
+...</p></div><footer class=entry-footer><span title='2023-03-24 00:00:00 +0000 UTC'>March 24, 2023</span></footer><a class=entry-link aria-label="post link to 클라이언트와 서버 상태, 왜 분리했는가?" href=https://leeyeonseong.github.io/tech-blog/articles/client-server-state/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>WebRTC 사용 중 발생하는 발열과 성능 저하</h2></header><div class=entry-content><p>영상 연결 시스템을 다루다 보면 브라우저, 특히 모바일에서 영상 연결이 오래 지속될 경우
+발열, 화면 멈춤, 느려짐 같은 현상이 발생하는 걸 종종 볼 수 있다.
+그동안은 “기기 문제겠지”라고 넘겼지만,
+WebRTC 내부 구조가 어떻게 작동하는지, 왜 그런 문제가 생기는지 공부해보기로 했다.
+WebRTC에서 발열/성능 저하가 발생하는 구조 찾아보면서 아래와 같은 지점에서 성능 이슈가 발생할 수 있다는 걸 알게 되었다:
+1. getUserMedia 호출 시 고해상도 요청 기본 요청은 HD(1280x720) 이상일 수 있음 모바일에서 고해상도는 CPU와 배터리 부담이 큼 // 적절한 해상도 지정 navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 360, frameRate: 15 }, audio: true, }); 고해상도 + 고 FPS → 모바일 발열 발생 가능성 ↑
+...</p></div><footer class=entry-footer><span title='2022-11-12 00:00:00 +0000 UTC'>November 12, 2022</span></footer><a class=entry-link aria-label="post link to WebRTC 사용 중 발생하는 발열과 성능 저하" href=https://leeyeonseong.github.io/tech-blog/articles/webrtc-codec/></a></article><footer class=page-footer><nav class=pagination><a class=prev href=https://leeyeonseong.github.io/tech-blog/articles/>«&nbsp;Prev&nbsp;</a></nav></footer></main><footer class=footer><span>&copy; 2025 <a href=https://leeyeonseong.github.io/tech-blog/>블로그</a></span> ·
 <span>Powered by
 <a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
         <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>

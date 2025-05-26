@@ -17,8 +17,7 @@ STUN/TURN 서버 인프라 구축 비용 증가 해외 네트워크 접속 불�
 특히 네트워크 환경이 불안정한 지역에서는 WebRTC 연결이 실패하거나, 연결되더라도 영상이 나타나지 않는 경우가 간헐적으로 발생했다.
 실시간 연결 도중의 끊김도 문제였지만, 초기 연결 자체가 되지 않는 상황은 더 치명적이었다.
 연결 단계에서 발견된 간헐적 연결 문제 WebRTC는 RTCPeerConnection과 ICE 프로토콜을 통해 두 클라이언트 간 최적 경로를 탐색한다.
-우리는 별도의 TURN 인프라 없이, 공용 STUN 서버만을 사용해 직접 연결(P2P)을 시도했다.
-해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:
+const peerConnection = new RTCPeerConnection({ iceServers: [{ urls: "example.google.com:19302" }], }); peerConnection.onicecandidate = (event) => { if (event.candidate) { socket.emit("ice-candidate", event.candidate); } }; peerConnection.createOffer() .then((offer) => peerConnection.setLocalDescription(offer)) .then(() => { socket.emit("offer", peerConnection.localDescription); }); ... answer, addIceCandidate, ontrack 해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:
 ...</p></div><footer class=entry-footer><span title='2023-07-23 00:00:00 +0000 UTC'>July 23, 2023</span></footer><a class=entry-link aria-label="post link to 해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?" href=https://leeyeonseong.github.io/tech-blog/articles/socket-issue/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>Context API -> Recoil 성능 개선 과정</h2></header><div class=entry-content><p>이전 글에서 클라이언트 상태와 서버 상태를 분리하는 과정에서
 Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니다.
 이번 글에서는 해당 구조가 실제 프로젝트에서 어떻게 적용되었는지,

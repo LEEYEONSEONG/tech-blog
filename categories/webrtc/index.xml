@@ -13,9 +13,26 @@
 &lt;p>실시간 연결 도중의 끊김도 문제였지만, &lt;strong>초기 연결 자체가 되지 않는 상황은 더 치명적&lt;/strong>이었다.&lt;/p>
 &lt;hr>
 &lt;h2 id="연결-단계에서-발견된-간헐적-연결-문제">연결 단계에서 발견된 간헐적 연결 문제&lt;/h2>
-&lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE 프로토콜을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;br>
-우리는 별도의 TURN 인프라 없이, 공용 STUN 서버만을 사용해 직접 연결(P2P)을 시도했다.&lt;/p>
-&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p></description></item><item><title>WebRTC howling ...</title><link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</link><pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</guid><description>&lt;h2 id="하울링은-왜-생기는가">하울링은 왜 생기는가?&lt;/h2>
+&lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE 프로토콜을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ts" data-lang="ts">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">peerConnection&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">RTCPeerConnection&lt;/span>({
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">iceServers&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [{ &lt;span style="color:#a6e22e">urls&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;example.google.com:19302&amp;#34;&lt;/span> }],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">peerConnection&lt;/span>.&lt;span style="color:#a6e22e">onicecandidate&lt;/span> &lt;span style="color:#f92672">=&lt;/span> (&lt;span style="color:#a6e22e">event&lt;/span>) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">event&lt;/span>.&lt;span style="color:#a6e22e">candidate&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">socket&lt;/span>.&lt;span style="color:#a6e22e">emit&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;ice-candidate&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">event&lt;/span>.&lt;span style="color:#a6e22e">candidate&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>};
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">peerConnection&lt;/span>.&lt;span style="color:#a6e22e">createOffer&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">then&lt;/span>((&lt;span style="color:#a6e22e">offer&lt;/span>) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">peerConnection&lt;/span>.&lt;span style="color:#a6e22e">setLocalDescription&lt;/span>(&lt;span style="color:#a6e22e">offer&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">then&lt;/span>(() &lt;span style="color:#f92672">=&amp;gt;&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">socket&lt;/span>.&lt;span style="color:#a6e22e">emit&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;offer&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">peerConnection&lt;/span>.&lt;span style="color:#a6e22e">localDescription&lt;/span>);
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> });
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>... &lt;span style="color:#a6e22e">answer&lt;/span>, &lt;span style="color:#a6e22e">addIceCandidate&lt;/span>, &lt;span style="color:#a6e22e">ontrack&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p></description></item><item><title>WebRTC howling ...</title><link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</link><pubDate>Mon, 03 Apr 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/</guid><description>&lt;h2 id="하울링은-왜-생기는가">하울링은 왜 생기는가?&lt;/h2>
 &lt;p>하울링은 간단히 말하면, &lt;strong>자신의 마이크에서 들어온 소리가 다시 자신의 스피커로 출력되고&lt;/strong>,&lt;/p>
 &lt;p>그게 다시 마이크로 입력되면서 무한 루프를 타는 상황입니다.&lt;/p>
 &lt;p>WebRTC는 &lt;code>getUserMedia&lt;/code>로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.&lt;/p>
@@ -28,4 +45,22 @@
 &lt;li>오디오 트랙만 따로 추적해서 제어&lt;/li>
 &lt;li>&lt;code>&amp;lt;audio muted /&amp;gt;&lt;/code> 설정 (그러나 의도대로 안 되는 경우도 많음)&lt;/li>
 &lt;/ul>
-&lt;p>하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p></description></item></channel></rss>
+&lt;p>하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p></description></item><item><title>WebRTC 사용 중 발생하는 발열과 성능 저하</title><link>https://leeyeonseong.github.io/tech-blog/articles/webrtc-codec/</link><pubDate>Sat, 12 Nov 2022 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/webrtc-codec/</guid><description>&lt;p>영상 연결 시스템을 다루다 보면 브라우저, 특히 모바일에서 영상 연결이 오래 지속될 경우&lt;br>
+&lt;strong>발열, 화면 멈춤, 느려짐&lt;/strong> 같은 현상이 발생하는 걸 종종 볼 수 있다.&lt;/p>
+&lt;p>그동안은 “기기 문제겠지”라고 넘겼지만,&lt;br>
+WebRTC 내부 구조가 어떻게 작동하는지, 왜 그런 문제가 생기는지 공부해보기로 했다.&lt;/p>
+&lt;hr>
+&lt;h2 id="webrtc에서-발열성능-저하가-발생하는-구조">WebRTC에서 발열/성능 저하가 발생하는 구조&lt;/h2>
+&lt;p>찾아보면서 아래와 같은 지점에서 성능 이슈가 발생할 수 있다는 걸 알게 되었다:&lt;/p>
+&lt;h3 id="1-getusermedia-호출-시-고해상도-요청">1. getUserMedia 호출 시 고해상도 요청&lt;/h3>
+&lt;ul>
+&lt;li>기본 요청은 HD(1280x720) 이상일 수 있음&lt;/li>
+&lt;li>모바일에서 고해상도는 CPU와 배터리 부담이 큼&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ts" data-lang="ts">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// 적절한 해상도 지정
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#a6e22e">navigator&lt;/span>.&lt;span style="color:#a6e22e">mediaDevices&lt;/span>.&lt;span style="color:#a6e22e">getUserMedia&lt;/span>({
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">video&lt;/span>&lt;span style="color:#f92672">:&lt;/span> { &lt;span style="color:#a6e22e">width&lt;/span>: &lt;span style="color:#66d9ef">640&lt;/span>, &lt;span style="color:#a6e22e">height&lt;/span>: &lt;span style="color:#66d9ef">360&lt;/span>, &lt;span style="color:#a6e22e">frameRate&lt;/span>: &lt;span style="color:#66d9ef">15&lt;/span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">audio&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>});
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>고해상도 + 고 FPS → 모바일 발열 발생 가능성 ↑&lt;/p></description></item></channel></rss>
