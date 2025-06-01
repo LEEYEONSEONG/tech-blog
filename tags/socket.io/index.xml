@@ -1,8 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Socket.io on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/tags/socket.io/</link><description>Recent content in Socket.io on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/tags/socket.io/index.xml" rel="self" type="application/rss+xml"/><item><title>해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</link><pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</guid><description>&lt;p>영상 연결 시스템을 운영하면서 가장 중요하게 다가온 이슈는 &lt;strong>실시간 연결의 안정성&lt;/strong>이었다.&lt;/p>
-&lt;p>특히 네트워크 환경이 불안정한 지역에서는 WebRTC 연결이 실패하거나, 연결되더라도 영상이 나타나지 않는 경우가 &lt;strong>간헐적으로&lt;/strong> 발생했다.&lt;/p>
-&lt;p>실시간 연결 도중의 끊김도 문제였지만, &lt;strong>초기 연결 자체가 되지 않는 상황은 더 치명적&lt;/strong>이었다.&lt;/p>
-&lt;hr>
-&lt;h2 id="연결-단계에서-발견된-간헐적-연결-문제">연결 단계에서 발견된 간헐적 연결 문제&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Socket.io on 블로그</title><link>https://leeyeonseong.github.io/tech-blog/tags/socket.io/</link><description>Recent content in Socket.io on 블로그</description><generator>Hugo -- 0.147.3</generator><language>ko</language><lastBuildDate>Wed, 03 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://leeyeonseong.github.io/tech-blog/tags/socket.io/index.xml" rel="self" type="application/rss+xml"/><item><title>해외 사용자 대상 WebRTC 연결, 어떻게 진단했을까?</title><link>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</link><pubDate>Wed, 03 May 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/socket-issue/</guid><description>&lt;h2 id="연결-단계에서-발견된-간헐적-연결-문제">연결 단계에서 발견된 간헐적 연결 문제&lt;/h2>
 &lt;p>WebRTC는 &lt;code>RTCPeerConnection&lt;/code>과 ICE 프로토콜을 통해 두 클라이언트 간 최적 경로를 탐색한다.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-ts" data-lang="ts">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">const&lt;/span> &lt;span style="color:#a6e22e">peerConnection&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">RTCPeerConnection&lt;/span>({
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">iceServers&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [{ &lt;span style="color:#a6e22e">urls&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#34;example.google.com:19302&amp;#34;&lt;/span> }],
@@ -14,12 +10,18 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>};
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">peerConnection&lt;/span>.&lt;span style="color:#a6e22e">createOffer&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">peerConnection&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">createOffer&lt;/span>()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">then&lt;/span>((&lt;span style="color:#a6e22e">offer&lt;/span>) &lt;span style="color:#f92672">=&amp;gt;&lt;/span> &lt;span style="color:#a6e22e">peerConnection&lt;/span>.&lt;span style="color:#a6e22e">setLocalDescription&lt;/span>(&lt;span style="color:#a6e22e">offer&lt;/span>))
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> .&lt;span style="color:#a6e22e">then&lt;/span>(() &lt;span style="color:#f92672">=&amp;gt;&lt;/span> {
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">socket&lt;/span>.&lt;span style="color:#a6e22e">emit&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;offer&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">peerConnection&lt;/span>.&lt;span style="color:#a6e22e">localDescription&lt;/span>);
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> });
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>... &lt;span style="color:#a6e22e">answer&lt;/span>, &lt;span style="color:#a6e22e">addIceCandidate&lt;/span>, &lt;span style="color:#a6e22e">ontrack&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p></description></item></channel></rss>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>해외 네트워크 환경을 사용하는 사용자들의 연결 기능에서 다음과 같은 현상이 간헐적으로 발생했다:&lt;/p>
+&lt;ul>
+&lt;li>영상이 연결되지 않거나 상대가 보이지 않음&lt;/li>
+&lt;li>상태 동기화나 메시지 수신이 실패함&lt;/li>
+&lt;li>네트워크 문제인지 브라우저 문제인지 식별하기 어려움&lt;/li>
+&lt;li>사용자 입장에서는 연결 상태에 대한 명확한 피드백이 없어 혼란을 느낌&lt;/li>
+&lt;/ul>
+&lt;h3 id="-vpn-사용-환경에서의-연결-실패">📌 VPN 사용 환경에서의 연결 실패&lt;/h3>
+&lt;p>또한 일부 사용자들이 &lt;strong>VPN을 활성화한 상태에서 접속&lt;/strong>하는 경우, WebRTC 연결이 실패하는 이슈가 존재했습니다.&lt;/p></description></item></channel></rss>
