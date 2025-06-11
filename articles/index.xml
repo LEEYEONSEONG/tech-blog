@@ -7,9 +7,9 @@
 &lt;hr>
 &lt;h2 id="1-항해를-시작할-당시의-나">1. 항해를 시작할 당시의 &lt;strong>&lt;em>나&lt;/em>&lt;/strong>&lt;/h2>
 &lt;h3 id="1-1-작년-흔들렸던-시간">1-1. 작년, 흔들렸던 시간&lt;/h3>
-&lt;p>작년, 여러모로 많이 힘들었던 시기였다. 외적인 상황도 쉽지 않았지만, 그보다 더 힘들었던 건&lt;/p>
+&lt;p>작년은 여러모로 쉽지 않응 시기였다. 외적인 상황동 만만치 않았지만, 그보다 더 크게 다가왔던 건&lt;/p>
 &lt;blockquote>
-&lt;p>&lt;strong>스스로를 믿는 마음이 점점 작아지고 있었다는 것&lt;/strong>.&lt;/p></description></item><item><title>react-virtualized로 대용량 리스트 렌더링 최적화하기</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-virtualized/</link><pubDate>Tue, 02 Apr 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-virtualized/</guid><description>&lt;p>react-virtualized를 적용하며 성능 개선한 내용을 정리해보려고 한다.&lt;/p>
+&lt;p>&lt;strong>스스로를 믿는 마음이 점점 작아지고 있었다는 것이었다.&lt;/strong>.&lt;/p></description></item><item><title>react-virtualized로 대용량 리스트 렌더링 최적화하기</title><link>https://leeyeonseong.github.io/tech-blog/articles/react-virtualized/</link><pubDate>Tue, 02 Apr 2024 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/react-virtualized/</guid><description>&lt;p>react-virtualized를 적용하며 성능 개선한 내용을 정리해보려고 한다.&lt;/p>
 &lt;p>단순히 가상화 리스트를 도입한 것에서 그치지 않고, Chrome 개발자 도구를 통해 메모리 구조와 GC 작동 방식까지 추적하며 성능 최적화가 실제로 어떤 효과를 가져오는지를 직접 비교해봤습니다.&lt;/p>
 &lt;hr>
 &lt;h2 id="대용량-리스트-렌더링-문제는-성능과-메모리였다">대용량 리스트 렌더링, 문제는 성능과 메모리였다&lt;/h2>
