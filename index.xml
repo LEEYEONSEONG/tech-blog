@@ -108,7 +108,10 @@ Context API 대신 Recoil을 도입하게 된 이유를 정리한 바 있습니�
 &lt;li>오디오 트랙만 따로 추적해서 제어&lt;/li>
 &lt;li>&lt;code>&amp;lt;audio muted /&amp;gt;&lt;/code> 설정 (그러나 의도대로 안 되는 경우도 많음)&lt;/li>
 &lt;/ul>
-&lt;p>하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p></description></item><item><title>클라이언트와 서버 상태, 왜 분리했는가?</title><link>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</guid><description>&lt;p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;/p>
+&lt;p>하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.&lt;/p></description></item><item><title>LangChain가 무엇인가?, 프론트엔드와의 접점</title><link>https://leeyeonseong.github.io/tech-blog/articles/langchain-frontend/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/langchain-frontend/</guid><description>&lt;p>개발자로 일한 지 어느덧 4년이 지났다. 그동안 주로 프론트엔드에 집중해 왔지만, 운 좋게도 AI 관련 회사들에서 경험을 쌓을 수 있었다. 첫 회사에서는 &lt;strong>음성 인식(STT)&lt;/strong> 을 다루는 곳이었고, 현재 다니고 있는 회사 역시 &lt;strong>스캔 데이터를 활용한 AI&lt;/strong> 서비스를 만들고 있다.&lt;/p>
+&lt;p>겉으로 보기에는 &amp;ldquo;사용자에게 보이는 화면을 만드는 프론트엔드 개발자&amp;quot;였지만, AI가 포함된 서비스 일부를 접할 기회가 많았다.&lt;/p>
+&lt;h2 id="변화하는-시장과-새로운-고민">변화하는 시장과 새로운 고민&lt;/h2>
+&lt;p>최근 원티드나 잡코리아 같은 채용 사이트를 보면, 많은 회사들이 LLM(Large Language Model) 기반 사업을 활발히 진행하고 있다. 단순한 검색이나 추천 시스템을 넘어, 대화형 서비스, 데이터 요약, 지능형 상담 등 다양한 분야에서 LLM이 접목되고 있었다.&lt;/p></description></item><item><title>클라이언트와 서버 상태, 왜 분리했는가?</title><link>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://leeyeonseong.github.io/tech-blog/articles/client-server-state/</guid><description>&lt;p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.&lt;/p>
 &lt;p>처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.&lt;br>
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.&lt;/p>
 &lt;hr>

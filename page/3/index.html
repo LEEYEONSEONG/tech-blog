@@ -4,7 +4,10 @@
 WebRTC는 getUserMedia로 마이크와 카메라를 활성화하고, 실시간으로 stream을 주고받기 때문에 이런 구조에서는 오디오 루프가 쉽게 생길 수 있습니다.
 여러 방법을 시도해봤습니다 처음에는 아래와 같은 해결책들을 시도했습니다:
 연결 직후 마이크를 자동으로 mute 처리 local stream과 remote stream을 분리해 렌더링 오디오 트랙만 따로 추적해서 제어 &lt;audio muted /> 설정 (그러나 의도대로 안 되는 경우도 많음) 하지만 완벽하게 해결되진 않았고, 상황에 따라 다시 하울링이 발생했습니다.
-...</p></div><footer class=entry-footer><span title='2023-04-03 00:00:00 +0000 UTC'>April 3, 2023</span></footer><a class=entry-link aria-label="post link to WebRTC howling ..." href=https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>클라이언트와 서버 상태, 왜 분리했는가?</h2></header><div class=entry-content><p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
+...</p></div><footer class=entry-footer><span title='2023-04-03 00:00:00 +0000 UTC'>April 3, 2023</span></footer><a class=entry-link aria-label="post link to WebRTC howling ..." href=https://leeyeonseong.github.io/tech-blog/articles/webrtc-howling/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>LangChain가 무엇인가?, 프론트엔드와의 접점</h2></header><div class=entry-content><p>개발자로 일한 지 어느덧 4년이 지났다. 그동안 주로 프론트엔드에 집중해 왔지만, 운 좋게도 AI 관련 회사들에서 경험을 쌓을 수 있었다. 첫 회사에서는 음성 인식(STT) 을 다루는 곳이었고, 현재 다니고 있는 회사 역시 스캔 데이터를 활용한 AI 서비스를 만들고 있다.
+겉으로 보기에는 “사용자에게 보이는 화면을 만드는 프론트엔드 개발자"였지만, AI가 포함된 서비스 일부를 접할 기회가 많았다.
+변화하는 시장과 새로운 고민 최근 원티드나 잡코리아 같은 채용 사이트를 보면, 많은 회사들이 LLM(Large Language Model) 기반 사업을 활발히 진행하고 있다. 단순한 검색이나 추천 시스템을 넘어, 대화형 서비스, 데이터 요약, 지능형 상담 등 다양한 분야에서 LLM이 접목되고 있었다.
+...</p></div><footer class=entry-footer><span title='2023-03-24 00:00:00 +0000 UTC'>March 24, 2023</span></footer><a class=entry-link aria-label="post link to LangChain가 무엇인가?, 프론트엔드와의 접점" href=https://leeyeonseong.github.io/tech-blog/articles/langchain-frontend/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>클라이언트와 서버 상태, 왜 분리했는가?</h2></header><div class=entry-content><p>프로젝트를 진행하다 보면 어느 순간 상태가 복잡해지기 시작합니다.
 처음에는 간단한 기능만 있어서 Context API로도 충분해 보였고, 그렇게 빠르게 개발을 시작했습니다.
 하지만 기능이 늘어나고 화면과 상태의 연동이 많아지면서, 상태 관리 구조에 대한 고민이 본격적으로 생겼습니다.
 Context API에서 발생한 문제 Context는 간단하고 직관적인 구조라는 점에서 좋지만, 하나의 상태가 바뀌면 해당 Provider 아래의 모든 컴포넌트가 함께 리렌더링되는 특성이 있습니다.
