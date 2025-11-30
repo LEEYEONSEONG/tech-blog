@@ -3,7 +3,7 @@
 </a><a href=https://www.linkedin.com/in/leeys1535/ target=_blank rel="noopener noreferrer me" title=Linkedin><svg viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></div></footer></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>Next.js 'use client'는 내부적으로 어떻게 동작할까?</h2></header><div class=entry-content><p>Next.js의 App Router로 프로젝트를 개발하다 보면 ‘use client’를 자주 사용하게 된다.
 12버전까지는 getServerSideProps를 사용하여 Pages Router 단위로 Server Side Rendering을 구현했다. 13 버전인 App Router가 도입되면서 모든 컴포넌트가 기본적으로 서버 컴포넌트가 되었고, 클라이언트에서 상태 관리나 이벤트 핸들러가 필요할 때만 ‘use client’를 파일 최상단에 작성하면 된다.
 “그냥 최상단에 ‘use client’만 사용하면 CSR로 동작하는구나!” 라고만 생각하고 내부적으로 어떻게 동작하는지 모르고 사용했다…
-공식 문서에서도
+Next/js의 공식 문서에서도
 “use client” is used to declare a boundary between a Server and Client Component modules.
 ...</p></div><footer class=entry-footer><span title='2025-11-30 00:00:00 +0000 UTC'>November 30, 2025</span></footer><a class=entry-link aria-label="post link to Next.js 'use client'는 내부적으로 어떻게 동작할까?" href=https://leeyeonseong.github.io/tech-blog/articles/next-use-client/></a></article><article class=post-entry><header class=entry-header><h2 class=entry-hint-parent>회의록 자동화 서비스 개발기: STT 모델 선택부터 LangChain까지</h2></header><div class=entry-content><p>지난 블로그에서 LangChain에 대해 정리했었다. 어떻게 동작하는지, 왜 필요한지 알아만 보고 빡빡한 배포 일정으로 만들어보지 못했다. 반성하자^^
 어떤 AI 서비스를 만들어볼까를 고민하다가, 요즘 회의를 할때 기록을 해두지 않으면 종종 놓치는 부분들이 생기고 있다. 회의 중에 집중하느라 놓치는 부분도 있고 악필이라 메모를 해도 이게 뭐였지 하는 부분이 가끔 있다…
